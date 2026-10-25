@@ -11,7 +11,7 @@
 *{box-sizing:border-box}
 html,body{
   margin:0;width:100%;height:100%;overflow:hidden;
-  background:#08040d;color:white;font-family:Georgia,serif
+  background:#08040d;color:#fff;font-family:Georgia,serif
 }
 button,a{-webkit-tap-highlight-color:transparent}
 .screen{
@@ -25,16 +25,11 @@ button,a{-webkit-tap-highlight-color:transparent}
 }
 .shade{
   position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(
-    0deg,rgba(0,0,0,.88),
-    rgba(0,0,0,.25) 48%,rgba(0,0,0,.12)
-  )
+  background:linear-gradient(0deg,#000d,transparent 70%)
 }
-#introImage{animation:slowZoom 12s ease-in-out infinite alternate}
-@keyframes slowZoom{
-  from{transform:scale(1)}
-  to{transform:scale(1.08)}
-}
+#introImage{animation:zoom 12s ease-in-out infinite alternate}
+@keyframes zoom{to{transform:scale(1.08)}}
+
 .top-controls{
   position:absolute;top:15px;right:15px;
   z-index:8;display:flex;gap:8px
@@ -47,16 +42,17 @@ button,a{-webkit-tap-highlight-color:transparent}
 .action{
   display:inline-block;border:1px solid #ffe0a1;color:white;
   background:linear-gradient(135deg,#8a36a8,#32103e);
-  padding:14px 24px;border-radius:40px;
+  padding:13px 22px;border-radius:40px;
   font:bold 15px Arial,sans-serif;cursor:pointer;
-  text-decoration:none;box-shadow:0 5px 25px #0009
+  text-decoration:none;box-shadow:0 5px 25px #0009;
+  margin:5px
 }
 .action:disabled{opacity:.5;cursor:default}
 .intro-content{
   position:absolute;z-index:3;inset:0;
   display:flex;flex-direction:column;
   align-items:center;justify-content:flex-end;
-  padding:30px 18px 9vh;text-align:center;
+  padding:25px 18px 9vh;text-align:center;
   background:linear-gradient(transparent 20%,#08040de8)
 }
 .intro-content h1{
@@ -90,27 +86,22 @@ button,a{-webkit-tap-highlight-color:transparent}
 }
 .tomb-title{
   position:absolute;z-index:4;top:3%;left:3%;right:3%;
-  text-align:center;color:white;
-  text-shadow:0 2px 8px black,0 0 15px black;
+  text-align:center;text-shadow:0 2px 8px black;
   pointer-events:none
 }
 .tomb-title h2{
   margin:0 0 6px;color:#ffe0a1;
   font-size:clamp(22px,4vw,42px)
 }
-.tomb-title p{
-  margin:0;font-size:clamp(12px,2vw,19px)
-}
+.tomb-title p{margin:0;font-size:clamp(12px,2vw,19px)}
 .tombs-sheet{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:contain;object-position:center;
   z-index:2;pointer-events:none
 }
 .tomb-choice{
-  position:absolute;z-index:5;
-  width:33.3333%;height:50%;
-  border:2px solid transparent;
-  background:transparent;cursor:pointer
+  position:absolute;z-index:5;width:33.3333%;height:50%;
+  border:2px solid transparent;background:transparent;cursor:pointer
 }
 .tomb-choice:hover,.tomb-choice:focus-visible{
   outline:none;border-color:#ffd27a;
@@ -118,24 +109,24 @@ button,a{-webkit-tap-highlight-color:transparent}
 }
 .result-content{
   position:absolute;z-index:4;inset:0;
-  display:flex;flex-direction:column;
-  justify-content:center;align-items:center;
-  padding:22px;text-align:center;
-  background:#08040dc9;overflow-y:auto
+  display:flex;flex-direction:column;justify-content:center;
+  align-items:center;padding:20px;text-align:center;
+  background:#08040dd9;overflow-y:auto
 }
 .result-content h2{
-  color:#ffe0a1;font-size:clamp(27px,5vw,50px);
+  color:#ffe0a1;font-size:clamp(26px,5vw,48px);
   text-shadow:0 0 20px #9c3fff;margin:0 0 10px
 }
 .prize{
-  font:bold clamp(45px,10vw,80px) Arial,sans-serif;
+  font:bold clamp(42px,10vw,78px) Arial,sans-serif;
   color:#ffda79;text-shadow:0 0 30px #ff832d;margin:12px 0
 }
 .conditions{
   font:14px/1.8 Arial,sans-serif;
-  text-shadow:0 2px 5px #000;margin:8px 0 16px
+  text-shadow:0 2px 5px #000;margin:8px 0 14px
 }
-.muted{font:12px Arial,sans-serif;color:#e3d7eb;margin-top:14px}
+.muted{font:12px Arial,sans-serif;color:#e3d7eb;margin-top:12px}
+
 @media(max-width:600px){
   .story-copy{bottom:8%;left:5%;right:5%}
   .story-copy p{font-size:18px}
@@ -190,7 +181,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   </div>
 </section>
 
-<!-- CEMENTERIO -->
+<!-- LAS SEIS TUMBAS -->
 <section id="tombs" class="screen hidden">
   <img class="full-image" src="fondo-cementerio.png"
        alt="Cementerio gótico bajo la luna">
@@ -201,11 +192,9 @@ button,a{-webkit-tap-highlight-color:transparent}
     <p>Elegí una tumba para descubrir tu premio… si te animás.</p>
   </div>
 
-  <!-- Imagen de las seis tumbas -->
   <img class="tombs-sheet" src="tumbas-nuevas.png"
        alt="Las seis tumbas numeradas">
 
-  <!-- Zonas seleccionables: tres arriba y tres abajo -->
   <button class="tomb-choice" style="left:0;top:0"
           aria-label="Elegir tumba 1"></button>
   <button class="tomb-choice" style="left:33.3333%;top:0"
@@ -220,7 +209,7 @@ button,a{-webkit-tap-highlight-color:transparent}
           aria-label="Elegir tumba 6"></button>
 </section>
 
-<!-- PREMIO -->
+<!-- RESULTADO -->
 <section id="result" class="screen hidden">
   <img class="full-image" src="fondo-cementerio.png"
        alt="Cementerio maldito">
@@ -245,6 +234,11 @@ button,a{-webkit-tap-highlight-color:transparent}
        target="_blank" rel="noopener">
        💬 RECLAMAR MI PREMIO
     </a>
+
+    <button class="action" id="playAgain">
+      🔄 JUGAR OTRA VEZ
+    </button>
+
     <p class="muted">Guardá una captura de tu resultado.</p>
   </div>
 </section>
@@ -253,7 +247,9 @@ button,a{-webkit-tap-highlight-color:transparent}
 (() => {
   const $ = id => document.getElementById(id);
   const screens = ["intro","film","tombs","result"];
-  const storageKey = "tumbatom-premio-sonido-v1";
+
+  // Esta clave guarda el resultado de la partida actual.
+  const storageKey = "tumbatom-premio-reinicio-v1";
   const duration = 3500;
   const prizes = ["$500","$1.000","10%","15%","25%","30%"];
 
@@ -271,7 +267,7 @@ button,a{-webkit-tap-highlight-color:transparent}
     {
       image:"escena3.png",
       chapter:"CAPÍTULO III · PERDIDO EN LA NIEBLA",
-      text:"Una niebla espesa cubrió el camino. Tom se perdió y ya no encontraba la forma de regresar."
+      text:"Una niebla espesa cubrió el camino. Tom se perdió y no encontraba la forma de regresar."
     },
     {
       image:"escena4.png",
@@ -306,22 +302,18 @@ button,a{-webkit-tap-highlight-color:transparent}
   }
 
   function ensureAudio() {
-    audio = audio || new (
-      window.AudioContext || window.webkitAudioContext
-    )();
+    audio = audio ||
+      new (window.AudioContext || window.webkitAudioContext)();
 
     if (audio.state === "suspended") audio.resume();
     return audio;
   }
 
-  // Música ambiental generada en el navegador.
   function stopMusic() {
     if (musicGain && audio) {
       try {
         musicGain.gain.cancelScheduledValues(audio.currentTime);
-        musicGain.gain.setTargetAtTime(
-          0.0001, audio.currentTime, 0.12
-        );
+        musicGain.gain.setTargetAtTime(0.0001, audio.currentTime, 0.12);
       } catch (e) {}
     }
 
@@ -337,6 +329,7 @@ button,a{-webkit-tap-highlight-color:transparent}
     musicMode = "";
   }
 
+  // Música ambiental electrónica de suspenso y terror.
   function startMusic(mode) {
     if (!soundOn) return;
     if (musicMode === mode && musicGain) return;
@@ -356,12 +349,11 @@ button,a{-webkit-tap-highlight-color:transparent}
       );
       musicGain = master;
 
-      // Tonos graves para crear tensión.
       const frequencies = mode === "terror"
-        ? [41.2, 49, 58.27, 73.42]
-        : [43.65, 55, 65.41, 82.41];
+        ? [41.2,49,58.27,73.42]
+        : [43.65,55,65.41,82.41];
 
-      frequencies.forEach((frequency, index) => {
+      frequencies.forEach((frequency,index) => {
         const osc = audio.createOscillator();
         const filter = audio.createBiquadFilter();
         const gain = audio.createGain();
@@ -371,7 +363,6 @@ button,a{-webkit-tap-highlight-color:transparent}
 
         filter.type = "lowpass";
         filter.frequency.value = mode === "terror" ? 180 : 125;
-
         gain.gain.value = index === 0 ? 0.22 : 0.07;
 
         osc.connect(filter);
@@ -379,10 +370,9 @@ button,a{-webkit-tap-highlight-color:transparent}
         gain.connect(master);
         osc.start();
 
-        musicNodes.push(osc, filter, gain);
+        musicNodes.push(osc,filter,gain);
       });
 
-      // Pulso profundo y lento.
       const lfo = audio.createOscillator();
       const lfoGain = audio.createGain();
       const baseGain = audio.createGain();
@@ -397,9 +387,8 @@ button,a{-webkit-tap-highlight-color:transparent}
       baseGain.connect(master);
       lfo.start();
 
-      musicNodes.push(lfo, lfoGain, baseGain);
+      musicNodes.push(lfo,lfoGain,baseGain);
 
-      // En el modo terror, añadir un tono agudo muy tenue.
       if (mode === "terror") {
         const eerie = audio.createOscillator();
         const eerieGain = audio.createGain();
@@ -412,14 +401,14 @@ button,a{-webkit-tap-highlight-color:transparent}
         eerieGain.connect(master);
         eerie.start();
 
-        musicNodes.push(eerie, eerieGain);
+        musicNodes.push(eerie,eerieGain);
       }
     } catch (e) {
       musicMode = "";
     }
   }
 
-  // Risa electrónica grave, descendente y entrecortada.
+  // Risa malévola sintética antes de revelar el premio.
   function evilLaugh() {
     if (!soundOn) return;
 
@@ -434,14 +423,14 @@ button,a{-webkit-tap-highlight-color:transparent}
 
       master.gain.value = 0.0001;
       master.connect(audio.destination);
-      master.gain.setValueAtTime(0.0001, now);
-      master.gain.linearRampToValueAtTime(0.13, now + 0.08);
-      master.gain.setValueAtTime(0.13, now + 1.2);
-      master.gain.exponentialRampToValueAtTime(0.0001, now + 1.8);
+      master.gain.setValueAtTime(0.0001,now);
+      master.gain.linearRampToValueAtTime(0.13,now+0.08);
+      master.gain.setValueAtTime(0.13,now+1.2);
+      master.gain.exponentialRampToValueAtTime(0.0001,now+1.8);
 
       osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(360, now);
-      osc.frequency.exponentialRampToValueAtTime(95, now + 1.55);
+      osc.frequency.setValueAtTime(360,now);
+      osc.frequency.exponentialRampToValueAtTime(95,now+1.55);
 
       filter.type = "lowpass";
       filter.frequency.value = 950;
@@ -451,20 +440,19 @@ button,a{-webkit-tap-highlight-color:transparent}
       filter.connect(gain);
       gain.connect(master);
 
-      // Nueve pulsos forman una carcajada sintética.
-      for (let i = 0; i < 9; i++) {
-        const t = now + i * 0.17;
-        gain.gain.setValueAtTime(0.02, t);
-        gain.gain.linearRampToValueAtTime(0.42, t + 0.045);
-        gain.gain.setValueAtTime(0.025, t + 0.115);
+      for (let i=0;i<9;i++) {
+        const t = now+i*0.17;
+        gain.gain.setValueAtTime(0.02,t);
+        gain.gain.linearRampToValueAtTime(0.42,t+0.045);
+        gain.gain.setValueAtTime(0.025,t+0.115);
       }
 
       osc.start(now);
-      osc.stop(now + 1.85);
+      osc.stop(now+1.85);
 
       setTimeout(() => {
         try { master.disconnect(); } catch (e) {}
-      }, 2200);
+      },2200);
     } catch (e) {}
   }
 
@@ -488,7 +476,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   }
 
   document.querySelectorAll(".sound-button").forEach(button => {
-    button.addEventListener("click", toggleSound);
+    button.addEventListener("click",toggleSound);
   });
 
   function renderScene() {
@@ -507,7 +495,7 @@ button,a{-webkit-tap-highlight-color:transparent}
       image.onerror = () => {
         image.classList.remove("fade");
         $("subtitle").textContent =
-          "No se pudo cargar " + scene.image +
+          "No se pudo cargar "+scene.image+
           ". Revisá el nombre del archivo en GitHub.";
       };
 
@@ -517,17 +505,17 @@ button,a{-webkit-tap-highlight-color:transparent}
       if (image.complete && image.naturalWidth > 0) {
         image.classList.remove("fade");
       }
-    }, 350);
+    },350);
 
     const started = Date.now();
 
     timer = setInterval(() => {
-      const elapsed = Date.now() - started;
+      const elapsed = Date.now()-started;
       $("progress").style.width =
-        Math.min(100, elapsed / duration * 100) + "%";
+        Math.min(100,elapsed/duration*100)+"%";
 
       if (elapsed >= duration) nextScene();
-    }, 50);
+    },50);
 
     startMusic("suspense");
   }
@@ -535,7 +523,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   function nextScene() {
     stopTimer();
 
-    if (current < scenes.length - 1) {
+    if (current < scenes.length-1) {
       current++;
       renderScene();
     } else {
@@ -547,74 +535,78 @@ button,a{-webkit-tap-highlight-color:transparent}
 
   function getSaved() {
     try {
-      return JSON.parse(localStorage.getItem(storageKey) || "null");
+      return JSON.parse(localStorage.getItem(storageKey)||"null");
     } catch (e) {
       return null;
     }
   }
 
-  function displayResult(data, repeated) {
+  function displayResult(data,repeated) {
     $("resultTitle").textContent = repeated
       ? "🪦 YA PARTICIPASTE"
       : "🎃 ¡LA TUMBA REVELÓ TU PREMIO!";
 
     $("prize").textContent = data.prize;
-
     $("resultText").textContent = repeated
-      ? "Tu premio guardado fue " + data.prize +
-        " en la tumba " + data.grave + "."
-      : "Elegiste la tumba " + data.grave +
-        " y descubriste " + data.prize + ".";
+      ? "Tu premio guardado fue "+data.prize+
+        " en la tumba "+data.grave+"."
+      : "Elegiste la tumba "+data.grave+
+        " y descubriste "+data.prize+".";
 
     const message =
-      "¡Hola, Comunidad Tom! 🎃 Elegí la tumba " + data.grave +
-      " y gané " + data.prize +
+      "¡Hola, Comunidad Tom! 🎃 Elegí la tumba "+data.grave+
+      " y gané "+data.prize+
       " en Tom y el Cementerio Maldito. Quiero reclamar mi premio.";
 
     $("claim").href =
-      "https://wa.me/?text=" + encodeURIComponent(message);
+      "https://wa.me/?text="+encodeURIComponent(message);
 
     stopMusic();
     show("result");
   }
 
-  $("start").addEventListener("click", () => {
+  $("start").addEventListener("click",() => {
     const old = getSaved();
 
     if (old) {
-      displayResult(old, true);
+      displayResult(old,true);
       return;
     }
 
     current = 0;
+    choosingTomb = false;
     $("progress").style.width = "0%";
+
+    document.querySelectorAll(".tomb-choice").forEach(button => {
+      button.disabled = false;
+    });
+
     show("film");
     renderScene();
   });
 
-  $("skip").addEventListener("click", () => {
+  $("skip").addEventListener("click",() => {
     stopTimer();
     show("tombs");
     startMusic("terror");
   });
 
-  document.querySelectorAll(".tomb-choice").forEach((button, index) => {
-    button.addEventListener("click", () => {
+  document.querySelectorAll(".tomb-choice").forEach((button,index) => {
+    button.addEventListener("click",() => {
       if (choosingTomb) return;
 
       const old = getSaved();
-
       if (old) {
-        displayResult(old, true);
+        displayResult(old,true);
         return;
       }
 
       choosingTomb = true;
+
       document.querySelectorAll(".tomb-choice").forEach(b => {
         b.disabled = true;
       });
 
-      // La música se detiene para que se escuche la carcajada.
       stopMusic();
       evilLaugh();
 
@@ -623,25 +615,49 @@ button,a{-webkit-tap-highlight-color:transparent}
       if (window.crypto && window.crypto.getRandomValues) {
         window.crypto.getRandomValues(random);
       } else {
-        random[0] = Math.floor(Math.random() * 4294967295);
+        random[0] = Math.floor(Math.random()*4294967295);
       }
 
       const data = {
-        grave: index + 1,
-        prize: prizes[random[0] % prizes.length]
+        grave:index+1,
+        prize:prizes[random[0]%prizes.length]
       };
 
       try {
-        localStorage.setItem(storageKey, JSON.stringify(data));
+        localStorage.setItem(storageKey,JSON.stringify(data));
       } catch (e) {}
 
-      // Mostrar el premio cuando termine la risa.
       setTimeout(() => {
-        displayResult(data, false);
+        displayResult(data,false);
         choosingTomb = false;
-      }, soundOn ? 1900 : 100);
+      },soundOn ? 1900 : 100);
     });
   });
+
+  // BOTÓN PARA REINICIAR Y JUGAR OTRA VEZ
+  $("playAgain").addEventListener("click",() => {
+    stopTimer();
+    stopMusic();
+
+    // Borrar únicamente el resultado guardado de este juego.
+    try {
+      localStorage.removeItem(storageKey);
+    } catch (e) {}
+
+    choosingTomb = false;
+    current = 0;
+
+    document.querySelectorAll(".tomb-choice").forEach(button => {
+      button.disabled = false;
+    });
+
+    $("progress").style.width = "0%";
+    $("filmImage").classList.remove("fade");
+
+    show("intro");
+    window.scrollTo(0,0);
+  });
+
 })();
 </script>
 
