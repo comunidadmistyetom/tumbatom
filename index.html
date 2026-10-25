@@ -1,1 +1,516 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tom y el Cementerio Maldito</title>
+
+<style>
+:root {
+  --oro: #ffcc72;
+  --violeta: #aa70ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #090510;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at top, #45205a, transparent 70%);
+  z-index: -1;
+}
+
+main {
+  width: min(94%, 780px);
+  margin: auto;
+  padding: 20px 0 40px;
+}
+
+h1 {
+  color: var(--oro);
+  text-shadow: 0 0 18px #e74e2e;
+  font-size: clamp(27px, 7vw, 45px);
+}
+
+h2 {
+  color: var(--oro);
+}
+
+p {
+  line-height: 1.6;
+}
+
+.panel {
+  background: #180f29ed;
+  border: 2px solid #8551a7;
+  border-radius: 22px;
+  padding: 16px;
+  box-shadow: 0 0 30px #702da440;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+  aspect-ratio: 16 / 10;
+  background: #21142d;
+}
+
+.scene > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.caption {
+  margin: 18px auto;
+  min-height: 60px;
+  font-size: clamp(17px, 3.5vw, 22px);
+  font-weight: bold;
+}
+
+.btn {
+  display: inline-block;
+  border: 2px solid var(--oro);
+  border-radius: 999px;
+  background: linear-gradient(#7332a1, #35124e);
+  padding: 13px 24px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 7px;
+  text-decoration: none;
+  box-shadow: 0 5px 17px #0009;
+}
+
+.btn:hover {
+  filter: brightness(1.25);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.graves {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  padding: 9% 7% 5%;
+  background: #100b1c44;
+}
+
+.grave {
+  align-self: end;
+  justify-self: center;
+  width: min(100%, 135px);
+  height: 78%;
+  min-height: 65px;
+  border: 3px solid #a39aaf;
+  border-radius: 48% 48% 7px 7px;
+  background: linear-gradient(120deg, #777184, #302b40 75%);
+  color: #fff1c8;
+  font-size: clamp(16px, 4vw, 24px);
+  font-weight: bold;
+  text-shadow: 2px 2px #000;
+  box-shadow: inset 8px 0 14px #ffffff22, 5px 8px 10px #000c;
+  cursor: pointer;
+  transition: transform .2s, filter .2s;
+}
+
+.grave::before {
+  content: "✝";
+  display: block;
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.grave:hover {
+  transform: translateY(-5px);
+  filter: brightness(1.3);
+}
+
+.grave:disabled {
+  cursor: default;
+  opacity: .75;
+}
+
+.prize {
+  font-size: clamp(34px, 8vw, 60px);
+  font-weight: bold;
+  color: #ffd56c;
+  text-shadow: 0 0 25px #e69324;
+  margin: 20px;
+}
+
+.rules {
+  font-size: 13px;
+  color: #e6d6ed;
+}
+
+.small {
+  font-size: 12px;
+  color: #cdbdd6;
+}
+
+.sound {
+  position: fixed;
+  right: 12px;
+  top: 12px;
+  z-index: 5;
+  background: #28123f;
+  border: 1px solid #a47ac5;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  font-size: 22px;
+}
+
+@media (max-width: 420px) {
+  .graves {
+    gap: 5px;
+    padding: 13% 5% 5%;
+  }
+
+  .grave {
+    min-height: 60px;
+  }
+
+  .grave::before {
+    font-size: 18px;
+  }
+
+  .panel {
+    padding: 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<button class="sound" id="sound" aria-label="Activar sonido">🔇</button>
+
+<main>
+
+<h1>🎃 Tom y el Cementerio Maldito 🪦</h1>
+
+<!-- PORTADA -->
+<section id="intro" class="panel">
+  <div class="scene">
+    <img src="escena1.png" alt="Tom sale a buscar dulces">
+  </div>
+
+  <p class="caption">
+    En la noche de Halloween, Tom salió disfrazado de vampiro
+    a buscar dulces... 🦇
+  </p>
+
+  <button class="btn" id="start">Comenzar historia ▶</button>
+</section>
+
+<!-- HISTORIA -->
+<section id="story" class="panel hidden">
+  <div class="scene">
+    <img id="storyImage" src="escena1.png" alt="Historia de Tom">
+  </div>
+
+  <p class="caption" id="storyText"></p>
+
+  <button class="btn" id="next">Continuar ➜</button>
+</section>
+
+<!-- SELECCIÓN DE TUMBAS -->
+<section id="game" class="panel hidden">
+  <h2>🪦 Las seis tumbas misteriosas</h2>
+
+  <p>
+    Tom llegó al cementerio maldito.
+    ¡Elegí una tumba para descubrir tu premio!
+  </p>
+
+  <div class="scene">
+    <img src="tumbas.png" alt="Cementerio de Halloween">
+    <div class="graves" id="graves"></div>
+  </div>
+
+  <p class="rules">
+    ⚠️ Solo podés elegir una tumba.
+    Tu resultado queda guardado en este navegador.
+  </p>
+</section>
+
+<!-- RESULTADO -->
+<section id="result" class="panel hidden">
+  <h2 id="resultTitle">🎉 ¡Encontraste un premio!</h2>
+
+  <div class="prize" id="prize"></div>
+
+  <p id="graveMessage"></p>
+
+  <p class="rules">
+    🎁 Sin mínimo de carga.<br>
+    💰 Tope de bonificación: $30.000.<br>
+    🔄 Para retirar con bono hay que duplicarlo.<br>
+    🚫 No válido para ruleta.<br>
+    🎮 Válido para una sola plataforma,
+    una carga y un número.<br>
+    🐱 Una vez por usuario.
+  </p>
+
+  <a id="claim" class="btn"
+     href="https://wa.link/v2txxr"
+     target="_blank" rel="noopener">
+    💬 Reclamar mi premio
+  </a>
+
+  <p class="small">
+    Guardá una captura de tu premio para reclamarlo.
+  </p>
+</section>
+
+<p class="small">🐱 Comunidad Tom · ¡Halloween maldito!</p>
+
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  const $ = id => document.getElementById(id);
+
+  const screens = ["intro", "story", "game", "result"];
+
+  function show(id) {
+    screens.forEach(screen => {
+      $(screen).classList.toggle("hidden", screen !== id);
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // HISTORIA DE TOM
+  const scenes = [
+    {
+      image: "escena1.png",
+      text: "Tom salió disfrazado de vampiro a pedir dulces por el vecindario. 🎃"
+    },
+    {
+      image: "escena2.png",
+      text: "La noche se volvió más oscura y una extraña neblina cubrió las calles. 🌫️"
+    },
+    {
+      image: "escena3.png",
+      text: "¡Oh, no! Tom se perdió entre la niebla y no encontraba el camino de regreso. 😨"
+    },
+    {
+      image: "escena4.png",
+      text: "A lo lejos encontró las rejas abiertas de un cementerio tenebroso. 🦇"
+    },
+    {
+      image: "escena5.png",
+      text: "Tom entró con cuidado. Frente a él aparecieron seis tumbas misteriosas... 🪦"
+    }
+  ];
+
+  let step = 0;
+
+  function drawStory() {
+    $("storyImage").src = scenes[step].image;
+    $("storyText").textContent = scenes[step].text;
+
+    $("next").textContent =
+      step === scenes.length - 1
+        ? "Descubrir las tumbas 🪦"
+        : "Continuar ➜";
+  }
+
+  $("start").addEventListener("click", () => {
+    step = 0;
+    drawStory();
+    show("story");
+    tone();
+  });
+
+  $("next").addEventListener("click", () => {
+    tone();
+
+    if (step < scenes.length - 1) {
+      step++;
+      drawStory();
+    } else {
+      show("game");
+    }
+  });
+
+  // PREMIOS
+  const prizes = [
+    "$500",
+    "$1.000",
+    "10%",
+    "15%",
+    "25%",
+    "30%"
+  ];
+
+  const storageKey = "tumbatom-premio-v1";
+
+  function saved() {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey) || "null");
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function renderResult(data, alreadyPlayed) {
+    $("resultTitle").textContent = alreadyPlayed
+      ? "🪦 ¡Ya participaste!"
+      : "🎉 ¡La tumba reveló tu premio!";
+
+    $("prize").textContent = data.prize;
+
+    $("graveMessage").textContent =
+      "Elegiste la tumba " + data.grave + ". " +
+      (alreadyPlayed
+        ? "Este es el premio que habías obtenido."
+        : "¡Tom encontró un tesoro! 🐱");
+
+    const message =
+      "¡Hola, Comunidad Tom! 🎃 Elegí la tumba " +
+      data.grave + " y gané " + data.prize +
+      " en Tom y el Cementerio Maldito. " +
+      "Quiero reclamar mi premio.";
+
+    $("claim").href =
+      "https://wa.me/?text=" + encodeURIComponent(message);
+
+    show("result");
+  }
+
+  // CREAR LAS SEIS TUMBAS
+  const container = $("graves");
+
+  for (let i = 1; i <= 6; i++) {
+    const button = document.createElement("button");
+
+    button.className = "grave";
+    button.textContent = i;
+    button.setAttribute("aria-label", "Elegir tumba " + i);
+
+    button.addEventListener("click", () => {
+      const previous = saved();
+
+      if (previous) {
+        renderResult(previous, true);
+        return;
+      }
+
+      // Elegir premio al azar
+      const randomValues = new Uint32Array(1);
+
+      if (window.crypto && window.crypto.getRandomValues) {
+        window.crypto.getRandomValues(randomValues);
+      } else {
+        randomValues[0] = Math.floor(Math.random() * 4294967295);
+      }
+
+      const prize = prizes[randomValues[0] % prizes.length];
+
+      const data = {
+        grave: i,
+        prize: prize
+      };
+
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(data));
+      } catch (error) {
+        console.warn("No se pudo guardar el premio en este navegador.");
+      }
+
+      tone();
+      renderResult(data, false);
+    });
+
+    container.appendChild(button);
+  }
+
+  // SI YA PARTICIPÓ, MOSTRAR SU PREMIO GUARDADO
+  const previous = saved();
+
+  if (previous) {
+    renderResult(previous, true);
+  }
+
+  // SONIDO SENCILLO GENERADO POR EL NAVEGADOR
+  let audioCtx = null;
+  let enabled = false;
+
+  function tone() {
+    if (!enabled) return;
+
+    try {
+      audioCtx = audioCtx ||
+        new (window.AudioContext || window.webkitAudioContext)();
+
+      const oscillator = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      oscillator.type = "sine";
+
+      oscillator.frequency.setValueAtTime(
+        170, audioCtx.currentTime
+      );
+
+      oscillator.frequency.exponentialRampToValueAtTime(
+        80, audioCtx.currentTime + 0.35
+      );
+
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+
+      gain.gain.exponentialRampToValueAtTime(
+        0.001, audioCtx.currentTime + 0.36
+      );
+
+      oscillator.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + 0.37);
+    } catch (error) {
+      console.warn("El sonido no está disponible.");
+    }
+  }
+
+  $("sound").addEventListener("click", () => {
+    enabled = !enabled;
+    $("sound").textContent = enabled ? "🔊" : "🔇";
+    tone();
+  });
+
+})();
+</script>
+
+</body>
+</html>
+
