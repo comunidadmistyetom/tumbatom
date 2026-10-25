@@ -3,13 +3,13 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tom y el Cementerio Maldito</title>
 
 <style>
 :root {
-  --oro: #ffcc72;
-  --violeta: #aa70ff;
+  --gold: #ffd27a;
+  --purple: #9c5be8;
 }
 
 * {
@@ -18,190 +18,252 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
-  background: #090510;
-  color: white;
-  font-family: Arial, sans-serif;
+  background: #080510;
+  color: #fff;
+  font-family: Georgia, serif;
   text-align: center;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse at top, #45205a, transparent 70%);
-  z-index: -1;
-}
-
 main {
-  width: min(94%, 780px);
+  width: min(960px, 96%);
   margin: auto;
-  padding: 20px 0 40px;
+  padding: 18px 0 35px;
 }
 
 h1 {
-  color: var(--oro);
-  text-shadow: 0 0 18px #e74e2e;
-  font-size: clamp(27px, 7vw, 45px);
+  font-size: clamp(26px, 5vw, 46px);
+  color: var(--gold);
+  text-shadow: 0 0 18px #a33bff;
+  margin: 10px 0 18px;
 }
 
 h2 {
-  color: var(--oro);
-}
-
-p {
-  line-height: 1.6;
+  color: var(--gold);
 }
 
 .panel {
-  background: #180f29ed;
-  border: 2px solid #8551a7;
-  border-radius: 22px;
-  padding: 16px;
-  box-shadow: 0 0 30px #702da440;
-}
-
-.scene {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 15px;
-  aspect-ratio: 16 / 10;
-  background: #21142d;
-}
-
-.scene > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.caption {
-  margin: 18px auto;
-  min-height: 60px;
-  font-size: clamp(17px, 3.5vw, 22px);
-  font-weight: bold;
-}
-
-.btn {
-  display: inline-block;
-  border: 2px solid var(--oro);
-  border-radius: 999px;
-  background: linear-gradient(#7332a1, #35124e);
-  padding: 13px 24px;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  margin: 7px;
-  text-decoration: none;
-  box-shadow: 0 5px 17px #0009;
-}
-
-.btn:hover {
-  filter: brightness(1.25);
+  background: linear-gradient(145deg, #1b1029, #090711);
+  border: 1px solid #8252ad;
+  border-radius: 18px;
+  padding: clamp(10px, 2vw, 20px);
+  box-shadow: 0 0 35px #672b8c44;
 }
 
 .hidden {
   display: none !important;
 }
 
-.graves {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
-  padding: 9% 7% 5%;
-  background: #100b1c44;
+button {
+  font: inherit;
 }
 
-.grave {
-  align-self: end;
-  justify-self: center;
-  width: min(100%, 135px);
-  height: 78%;
-  min-height: 65px;
-  border: 3px solid #a39aaf;
-  border-radius: 48% 48% 7px 7px;
-  background: linear-gradient(120deg, #777184, #302b40 75%);
-  color: #fff1c8;
-  font-size: clamp(16px, 4vw, 24px);
-  font-weight: bold;
-  text-shadow: 2px 2px #000;
-  box-shadow: inset 8px 0 14px #ffffff22, 5px 8px 10px #000c;
+.btn {
+  display: inline-block;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  background: linear-gradient(#7136a0, #321444);
+  color: white;
+  padding: 12px 22px;
+  margin: 8px 4px;
   cursor: pointer;
-  transition: transform .2s, filter .2s;
-}
-
-.grave::before {
-  content: "✝";
-  display: block;
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-
-.grave:hover {
-  transform: translateY(-5px);
-  filter: brightness(1.3);
-}
-
-.grave:disabled {
-  cursor: default;
-  opacity: .75;
-}
-
-.prize {
-  font-size: clamp(34px, 8vw, 60px);
   font-weight: bold;
-  color: #ffd56c;
-  text-shadow: 0 0 25px #e69324;
-  margin: 20px;
+  box-shadow: 0 5px 16px #0008;
 }
 
-.rules {
-  font-size: 13px;
-  color: #e6d6ed;
+.btn:hover {
+  filter: brightness(1.2);
 }
 
 .small {
-  font-size: 12px;
-  color: #cdbdd6;
+  font: 13px Arial, sans-serif;
+  color: #d8c8e6;
+  line-height: 1.6;
+}
+
+.movie {
+  position: relative;
+  overflow: hidden;
+  border-radius: 13px;
+  background: #090611;
+  aspect-ratio: 16 / 9;
+  isolation: isolate;
+}
+
+.movie img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: fadeIn .8s ease both;
+}
+
+.movie:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    #05020bee 0%,
+    #05020b88 34%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: .2;
+    transform: scale(1.035);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.film-copy {
+  position: absolute;
+  z-index: 2;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  text-align: left;
+  text-shadow: 0 2px 5px #000;
+}
+
+.film-label {
+  font: bold 12px Arial, sans-serif;
+  letter-spacing: 3px;
+  color: var(--gold);
+}
+
+.film-copy p {
+  font-size: clamp(16px, 2.7vw, 25px);
+  line-height: 1.35;
+  margin: 8px 0 0;
+}
+
+.film-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.progress {
+  height: 4px;
+  background: #3d2c4d;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  width: 0;
+  transition: width .2s linear;
 }
 
 .sound {
   position: fixed;
   right: 12px;
   top: 12px;
-  z-index: 5;
-  background: #28123f;
-  border: 1px solid #a47ac5;
+  z-index: 10;
   border-radius: 50%;
-  padding: 10px;
+  background: #251137;
+  border: 1px solid #b58be0;
+  color: #fff;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
-  color: white;
-  font-size: 22px;
+  font-size: 20px;
 }
 
-@media (max-width: 420px) {
-  .graves {
-    gap: 5px;
-    padding: 13% 5% 5%;
+.tomb-viewport {
+  overflow-x: auto;
+  border-radius: 12px;
+  scrollbar-color: #a77bd0 #160d20;
+}
+
+.tomb-art {
+  position: relative;
+  width: 100%;
+  min-width: 680px;
+  aspect-ratio: 1920 / 720;
+  overflow: hidden;
+}
+
+.tomb-art > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.tomb-hotspot {
+  position: absolute;
+  top: 29%;
+  height: 59%;
+  width: 13%;
+  border: 2px solid transparent;
+  border-radius: 45% 45% 8px 8px;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+}
+
+.tomb-hotspot:hover,
+.tomb-hotspot:focus-visible {
+  border-color: #ffd27a;
+  background: #ffd27a22;
+  outline: none;
+  box-shadow: 0 0 20px #ffb94788;
+}
+
+.tomb-hotspot:after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  color: #fff;
+  background: #160b22d9;
+  border-radius: 6px;
+  font: bold 12px Arial, sans-serif;
+  padding: 5px 1px;
+  text-shadow: 0 1px #000;
+}
+
+.prize {
+  font: bold clamp(36px, 9vw, 64px) Arial, sans-serif;
+  color: var(--gold);
+  text-shadow: 0 0 20px #ff8a28;
+  margin: 18px 0;
+}
+
+.rules {
+  font: 13px/1.7 Arial, sans-serif;
+  color: #eadcf3;
+}
+
+@media (max-width: 600px) {
+  main {
+    width: 96%;
   }
 
-  .grave {
-    min-height: 60px;
+  .movie {
+    aspect-ratio: 4 / 3;
   }
 
-  .grave::before {
-    font-size: 18px;
+  .film-copy p {
+    font-size: 17px;
   }
 
-  .panel {
-    padding: 10px;
+  .tomb-art {
+    min-width: 720px;
   }
 }
 </style>
@@ -209,7 +271,9 @@ p {
 
 <body>
 
-<button class="sound" id="sound" aria-label="Activar sonido">🔇</button>
+<button class="sound" id="sound"
+  title="Activar o desactivar sonido"
+  aria-label="Sonido">🔇</button>
 
 <main>
 
@@ -217,58 +281,120 @@ p {
 
 <!-- PORTADA -->
 <section id="intro" class="panel">
-  <div class="scene">
-    <img src="escena1.png" alt="Tom sale a buscar dulces">
+  <div class="movie">
+    <img src="escena1.png"
+      alt="Tom vampiro sale a pedir dulces">
   </div>
 
-  <p class="caption">
-    En la noche de Halloween, Tom salió disfrazado de vampiro
-    a buscar dulces... 🦇
-  </p>
-
-  <button class="btn" id="start">Comenzar historia ▶</button>
-</section>
-
-<!-- HISTORIA -->
-<section id="story" class="panel hidden">
-  <div class="scene">
-    <img id="storyImage" src="escena1.png" alt="Historia de Tom">
-  </div>
-
-  <p class="caption" id="storyText"></p>
-
-  <button class="btn" id="next">Continuar ➜</button>
-</section>
-
-<!-- SELECCIÓN DE TUMBAS -->
-<section id="game" class="panel hidden">
-  <h2>🪦 Las seis tumbas misteriosas</h2>
+  <h2>Una historia de Halloween</h2>
 
   <p>
-    Tom llegó al cementerio maldito.
-    ¡Elegí una tumba para descubrir tu premio!
+    Una noche, Tom salió a buscar dulces…
+    pero la niebla tenía otros planes. 🌕
   </p>
 
-  <div class="scene">
-    <img src="tumbas.png" alt="Cementerio de Halloween">
-    <div class="graves" id="graves"></div>
+  <button class="btn" id="start">
+    ▶ VER LA HISTORIA
+  </button>
+</section>
+
+<!-- PELÍCULA -->
+<section id="film" class="panel hidden">
+
+  <div class="movie">
+    <img id="filmImage"
+      src="escena1.png"
+      alt="Escena de la historia">
+
+    <div class="film-copy">
+      <div class="film-label" id="filmLabel">
+        UNA NOCHE DE HALLOWEEN
+      </div>
+
+      <p id="filmText"></p>
+    </div>
   </div>
 
+  <div class="progress">
+    <span id="progress"></span>
+  </div>
+
+  <div class="film-controls">
+    <span class="small" id="sceneCount">
+      ESCENA 1 DE 5
+    </span>
+
+    <button class="btn" id="skip">
+      Saltar historia ⏭
+    </button>
+  </div>
+</section>
+
+<!-- LAS SEIS TUMBAS -->
+<section id="game" class="panel hidden">
+
+  <h2>Las seis tumbas misteriosas</h2>
+
+  <p>
+    Tom llegó al cementerio y encontró seis tumbas antiguas.
+    Elegí una para descubrir tu premio… si te animás. 🕯️
+  </p>
+
+  <div class="tomb-viewport">
+    <div class="tomb-art">
+
+      <img src="tumbas.png"
+        alt="Seis tumbas góticas bajo la luna llena">
+
+      <button class="tomb-hotspot"
+        style="left:3%"
+        aria-label="Elegir tumba 1"></button>
+
+      <button class="tomb-hotspot"
+        style="left:18%"
+        aria-label="Elegir tumba 2"></button>
+
+      <button class="tomb-hotspot"
+        style="left:34%"
+        aria-label="Elegir tumba 3"></button>
+
+      <button class="tomb-hotspot"
+        style="left:50%"
+        aria-label="Elegir tumba 4"></button>
+
+      <button class="tomb-hotspot"
+        style="left:66%"
+        aria-label="Elegir tumba 5"></button>
+
+      <button class="tomb-hotspot"
+        style="left:83%"
+        aria-label="Elegir tumba 6"></button>
+
+    </div>
+  </div>
+
+  <p class="small">
+    En celular, deslizá la imagen hacia los costados
+    para ver las seis tumbas.
+  </p>
+
   <p class="rules">
-    ⚠️ Solo podés elegir una tumba.
-    Tu resultado queda guardado en este navegador.
+    ⚠️ Una sola oportunidad por navegador.
   </p>
 </section>
 
-<!-- RESULTADO -->
+<!-- PREMIO -->
 <section id="result" class="panel hidden">
-  <h2 id="resultTitle">🎉 ¡Encontraste un premio!</h2>
+
+  <h2 id="resultTitle">
+    ¡La tumba reveló tu premio!
+  </h2>
 
   <div class="prize" id="prize"></div>
 
-  <p id="graveMessage"></p>
+  <p id="resultText"></p>
 
-  <p class="rules">
+  <div class="rules">
     🎁 Sin mínimo de carga.<br>
     💰 Tope de bonificación: $30.000.<br>
     🔄 Para retirar con bono hay que duplicarlo.<br>
@@ -276,94 +402,195 @@ p {
     🎮 Válido para una sola plataforma,
     una carga y un número.<br>
     🐱 Una vez por usuario.
-  </p>
+  </div>
 
-  <a id="claim" class="btn"
-     href="https://wa.link/v2txxr"
-     target="_blank" rel="noopener">
+  <a class="btn" id="claim"
+    href="https://wa.link/v2txxr"
+    target="_blank" rel="noopener">
     💬 Reclamar mi premio
   </a>
 
   <p class="small">
-    Guardá una captura de tu premio para reclamarlo.
+    Guardá una captura del resultado para reclamarlo.
   </p>
 </section>
 
-<p class="small">🐱 Comunidad Tom · ¡Halloween maldito!</p>
+<p class="small">
+  🐱 Comunidad Tom · ¡Que la suerte te acompañe esta noche!
+</p>
 
 </main>
 
 <script>
 (() => {
-  "use strict";
-
   const $ = id => document.getElementById(id);
 
-  const screens = ["intro", "story", "game", "result"];
+  const sections = ["intro", "film", "game", "result"];
 
   function show(id) {
-    screens.forEach(screen => {
-      $(screen).classList.toggle("hidden", screen !== id);
+    sections.forEach(section => {
+      $(section).classList.toggle("hidden", section !== id);
     });
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  // HISTORIA DE TOM
+  // HISTORIA EN ORDEN CRONOLÓGICO
   const scenes = [
     {
-      image: "escena1.png",
-      text: "Tom salió disfrazado de vampiro a pedir dulces por el vecindario. 🎃"
+      img: "escena1.png",
+      label: "UNA NOCHE DE HALLOWEEN",
+      text: "Tom se puso su traje de vampiro y salió feliz a pedir dulces por el vecindario."
     },
     {
-      image: "escena2.png",
-      text: "La noche se volvió más oscura y una extraña neblina cubrió las calles. 🌫️"
+      img: "escena2.png",
+      label: "UN PASEO ENTRE CALABAZAS",
+      text: "Las casas brillaban con luces de Halloween. Tom siguió caminando, buscando más dulces."
     },
     {
-      image: "escena3.png",
-      text: "¡Oh, no! Tom se perdió entre la niebla y no encontraba el camino de regreso. 😨"
+      img: "escena3.png",
+      label: "LA NIEBLA LO CUBRIÓ TODO",
+      text: "De pronto, una niebla espesa cubrió el camino. Tom se perdió y ya no reconocía las calles."
     },
     {
-      image: "escena4.png",
-      text: "A lo lejos encontró las rejas abiertas de un cementerio tenebroso. 🦇"
+      img: "escena4.png",
+      label: "LAS REJAS DEL CEMENTERIO",
+      text: "A través de la niebla, Tom vio unas rejas antiguas abiertas. Sin saber dónde estaba, se acercó con cautela."
     },
     {
-      image: "escena5.png",
-      text: "Tom entró con cuidado. Frente a él aparecieron seis tumbas misteriosas... 🪦"
+      img: "escena5.png",
+      label: "SEIS TUMBAS MISTERIOSAS",
+      text: "Tom entró al cementerio. Bajo la luna encontró seis tumbas tenebrosas… y algo parecía esperarlo."
     }
   ];
 
-  let step = 0;
+  let current = 0;
+  let timer = null;
+  let startedAt = 0;
+  let soundOn = false;
+  let audio = null;
 
-  function drawStory() {
-    $("storyImage").src = scenes[step].image;
-    $("storyText").textContent = scenes[step].text;
+  const duration = 6500;
 
-    $("next").textContent =
-      step === scenes.length - 1
-        ? "Descubrir las tumbas 🪦"
-        : "Continuar ➜";
+  // EFECTO SONORO DE TERROR
+  function beep() {
+    if (!soundOn) return;
+
+    try {
+      audio = audio ||
+        new (window.AudioContext || window.webkitAudioContext)();
+
+      const oscillator = audio.createOscillator();
+      const gain = audio.createGain();
+
+      oscillator.type = "sine";
+
+      oscillator.frequency.setValueAtTime(
+        190, audio.currentTime
+      );
+
+      oscillator.frequency.exponentialRampToValueAtTime(
+        75, audio.currentTime + 0.45
+      );
+
+      gain.gain.setValueAtTime(
+        0.055, audio.currentTime
+      );
+
+      gain.gain.exponentialRampToValueAtTime(
+        0.001, audio.currentTime + 0.46
+      );
+
+      oscillator.connect(gain);
+      gain.connect(audio.destination);
+
+      oscillator.start();
+      oscillator.stop(audio.currentTime + 0.47);
+    } catch (error) {
+      // El juego sigue funcionando si el sonido no está disponible.
+    }
   }
 
-  $("start").addEventListener("click", () => {
-    step = 0;
-    drawStory();
-    show("story");
-    tone();
-  });
+  function stopTimer() {
+    if (timer) {
+      clearInterval(timer);
+    }
 
-  $("next").addEventListener("click", () => {
-    tone();
+    timer = null;
+  }
 
-    if (step < scenes.length - 1) {
-      step++;
-      drawStory();
+  // MOSTRAR CADA ESCENA
+  function renderScene() {
+    const scene = scenes[current];
+    const image = $("filmImage");
+
+    image.style.animation = "none";
+    void image.offsetWidth;
+    image.style.animation = "fadeIn .8s ease both";
+
+    image.src = scene.img;
+    image.alt = scene.label;
+
+    $("filmLabel").textContent = scene.label;
+    $("filmText").textContent = scene.text;
+
+    $("sceneCount").textContent =
+      `ESCENA ${current + 1} DE ${scenes.length}`;
+
+    $("progress").style.width = "0%";
+
+    startedAt = Date.now();
+
+    stopTimer();
+
+    timer = setInterval(() => {
+      const elapsed = Date.now() - startedAt;
+
+      $("progress").style.width =
+        Math.min(100, elapsed / duration * 100) + "%";
+
+      if (elapsed >= duration) {
+        nextScene();
+      }
+    }, 100);
+  }
+
+  function nextScene() {
+    stopTimer();
+    beep();
+
+    if (current < scenes.length - 1) {
+      current++;
+      renderScene();
     } else {
       show("game");
     }
+  }
+
+  $("start").addEventListener("click", () => {
+    current = 0;
+    show("film");
+    renderScene();
+    beep();
   });
 
-  // PREMIOS
+  $("skip").addEventListener("click", () => {
+    stopTimer();
+    show("game");
+  });
+
+  $("sound").addEventListener("click", () => {
+    soundOn = !soundOn;
+    $("sound").textContent = soundOn ? "🔊" : "🔇";
+
+    if (soundOn) {
+      beep();
+    }
+  });
+
+  // PREMIOS Y PARTICIPACIÓN
+  const storageKey = "tumbatom-premio-v2";
+
   const prizes = [
     "$500",
     "$1.000",
@@ -373,34 +600,31 @@ p {
     "30%"
   ];
 
-  const storageKey = "tumbatom-premio-v1";
-
-  function saved() {
+  function getSaved() {
     try {
-      return JSON.parse(localStorage.getItem(storageKey) || "null");
+      return JSON.parse(
+        localStorage.getItem(storageKey) || "null"
+      );
     } catch (error) {
       return null;
     }
   }
 
-  function renderResult(data, alreadyPlayed) {
-    $("resultTitle").textContent = alreadyPlayed
-      ? "🪦 ¡Ya participaste!"
-      : "🎉 ¡La tumba reveló tu premio!";
+  function displayResult(data, repeated) {
+    $("resultTitle").textContent = repeated
+      ? "🪦 Ya participaste"
+      : "🎉 ¡Premio descubierto!";
 
     $("prize").textContent = data.prize;
 
-    $("graveMessage").textContent =
-      "Elegiste la tumba " + data.grave + ". " +
-      (alreadyPlayed
-        ? "Este es el premio que habías obtenido."
-        : "¡Tom encontró un tesoro! 🐱");
+    $("resultText").textContent = repeated
+      ? `Tu premio guardado fue ${data.prize}, de la tumba ${data.grave}.`
+      : `¡Elegiste la tumba ${data.grave} y encontraste ${data.prize}!`;
 
     const message =
-      "¡Hola, Comunidad Tom! 🎃 Elegí la tumba " +
-      data.grave + " y gané " + data.prize +
-      " en Tom y el Cementerio Maldito. " +
-      "Quiero reclamar mi premio.";
+      `¡Hola, Comunidad Tom! 🎃 Elegí la tumba ${data.grave} ` +
+      `y gané ${data.prize} en Tom y el Cementerio Maldito. ` +
+      `Quiero reclamar mi premio.`;
 
     $("claim").href =
       "https://wa.me/?text=" + encodeURIComponent(message);
@@ -408,109 +632,50 @@ p {
     show("result");
   }
 
-  // CREAR LAS SEIS TUMBAS
-  const container = $("graves");
+  // ZONAS CLICKEABLES DE LAS SEIS TUMBAS
+  document.querySelectorAll(".tomb-hotspot").forEach(
+    (button, index) => {
 
-  for (let i = 1; i <= 6; i++) {
-    const button = document.createElement("button");
+      button.addEventListener("click", () => {
+        const previous = getSaved();
 
-    button.className = "grave";
-    button.textContent = i;
-    button.setAttribute("aria-label", "Elegir tumba " + i);
+        if (previous) {
+          displayResult(previous, true);
+          return;
+        }
 
-    button.addEventListener("click", () => {
-      const previous = saved();
+        const randomValues = new Uint32Array(1);
 
-      if (previous) {
-        renderResult(previous, true);
-        return;
-      }
+        if (window.crypto && window.crypto.getRandomValues) {
+          window.crypto.getRandomValues(randomValues);
+        } else {
+          randomValues[0] =
+            Math.floor(Math.random() * 4294967295);
+        }
 
-      // Elegir premio al azar
-      const randomValues = new Uint32Array(1);
+        const data = {
+          grave: index + 1,
+          prize: prizes[randomValues[0] % prizes.length]
+        };
 
-      if (window.crypto && window.crypto.getRandomValues) {
-        window.crypto.getRandomValues(randomValues);
-      } else {
-        randomValues[0] = Math.floor(Math.random() * 4294967295);
-      }
+        try {
+          localStorage.setItem(
+            storageKey,
+            JSON.stringify(data)
+          );
+        } catch (error) {
+          // Si el navegador bloquea el almacenamiento,
+          // el resultado se muestra igualmente.
+        }
 
-      const prize = prizes[randomValues[0] % prizes.length];
-
-      const data = {
-        grave: i,
-        prize: prize
-      };
-
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(data));
-      } catch (error) {
-        console.warn("No se pudo guardar el premio en este navegador.");
-      }
-
-      tone();
-      renderResult(data, false);
-    });
-
-    container.appendChild(button);
-  }
-
-  // SI YA PARTICIPÓ, MOSTRAR SU PREMIO GUARDADO
-  const previous = saved();
-
-  if (previous) {
-    renderResult(previous, true);
-  }
-
-  // SONIDO SENCILLO GENERADO POR EL NAVEGADOR
-  let audioCtx = null;
-  let enabled = false;
-
-  function tone() {
-    if (!enabled) return;
-
-    try {
-      audioCtx = audioCtx ||
-        new (window.AudioContext || window.webkitAudioContext)();
-
-      const oscillator = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-
-      oscillator.type = "sine";
-
-      oscillator.frequency.setValueAtTime(
-        170, audioCtx.currentTime
-      );
-
-      oscillator.frequency.exponentialRampToValueAtTime(
-        80, audioCtx.currentTime + 0.35
-      );
-
-      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-
-      gain.gain.exponentialRampToValueAtTime(
-        0.001, audioCtx.currentTime + 0.36
-      );
-
-      oscillator.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      oscillator.start();
-      oscillator.stop(audioCtx.currentTime + 0.37);
-    } catch (error) {
-      console.warn("El sonido no está disponible.");
+        beep();
+        displayResult(data, false);
+      });
     }
-  }
-
-  $("sound").addEventListener("click", () => {
-    enabled = !enabled;
-    $("sound").textContent = enabled ? "🔊" : "🔇";
-    tone();
-  });
+  );
 
 })();
 </script>
 
 </body>
 </html>
-
