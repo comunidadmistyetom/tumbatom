@@ -4,678 +4,340 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100719">
 <title>Tom y el Cementerio Maldito</title>
 
 <style>
-:root {
-  --gold: #ffd27a;
-  --purple: #9c5be8;
+*{box-sizing:border-box}
+body{
+  margin:0;background:#090611;color:#fff;
+  font-family:Georgia,serif;text-align:center;
 }
-
-* {
-  box-sizing: border-box;
+main{width:min(950px,96%);margin:auto;padding:18px 0 35px}
+h1{
+  color:#ffd27a;font-size:clamp(26px,6vw,44px);
+  text-shadow:0 0 20px #9c43ff;margin:12px 0 20px;
 }
-
-body {
-  margin: 0;
-  background: #080510;
-  color: #fff;
-  font-family: Georgia, serif;
-  text-align: center;
+h2{color:#ffd27a}
+.panel{
+  padding:clamp(10px,2.5vw,22px);
+  border:1px solid #8852aa;border-radius:18px;
+  background:linear-gradient(145deg,#21112f,#0b0712);
+  box-shadow:0 0 30px #7226a533;
 }
-
-main {
-  width: min(960px, 96%);
-  margin: auto;
-  padding: 18px 0 35px;
+.hidden{display:none!important}
+.btn{
+  display:inline-block;padding:12px 22px;margin:8px 4px;
+  border:1px solid #ffd27a;border-radius:30px;
+  background:linear-gradient(#7439a3,#321344);
+  color:white;font-size:16px;font-weight:bold;
+  cursor:pointer;text-decoration:none;
 }
-
-h1 {
-  font-size: clamp(26px, 5vw, 46px);
-  color: var(--gold);
-  text-shadow: 0 0 18px #a33bff;
-  margin: 10px 0 18px;
+.btn:hover{filter:brightness(1.25)}
+.movie{
+  position:relative;aspect-ratio:16/9;overflow:hidden;
+  border-radius:12px;background:#100719;
 }
-
-h2 {
-  color: var(--gold);
+.movie img{
+  width:100%;height:100%;object-fit:cover;display:block;
 }
-
-.panel {
-  background: linear-gradient(145deg, #1b1029, #090711);
-  border: 1px solid #8252ad;
-  border-radius: 18px;
-  padding: clamp(10px, 2vw, 20px);
-  box-shadow: 0 0 35px #672b8c44;
+.movie img.change{animation:appear .8s ease}
+@keyframes appear{
+  from{opacity:.15;transform:scale(1.04)}
+  to{opacity:1;transform:scale(1)}
 }
-
-.hidden {
-  display: none !important;
+.movie:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(0deg,#08040df2,transparent 75%);
 }
-
-button {
-  font: inherit;
+.caption{
+  position:absolute;z-index:2;bottom:5%;left:5%;right:5%;
+  text-align:left;text-shadow:0 2px 5px #000;
 }
-
-.btn {
-  display: inline-block;
-  border: 1px solid var(--gold);
-  border-radius: 999px;
-  background: linear-gradient(#7136a0, #321444);
-  color: white;
-  padding: 12px 22px;
-  margin: 8px 4px;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 5px 16px #0008;
+.caption small{
+  color:#ffd27a;font: bold 11px Arial,sans-serif;
+  letter-spacing:2px;
 }
-
-.btn:hover {
-  filter: brightness(1.2);
+.caption p{
+  font-size:clamp(16px,3vw,25px);
+  line-height:1.35;margin:8px 0 0;
 }
-
-.small {
-  font: 13px Arial, sans-serif;
-  color: #d8c8e6;
-  line-height: 1.6;
+.progress{
+  height:4px;background:#382346;margin-top:12px;border-radius:8px;
 }
-
-.movie {
-  position: relative;
-  overflow: hidden;
-  border-radius: 13px;
-  background: #090611;
-  aspect-ratio: 16 / 9;
-  isolation: isolate;
+.progress span{
+  display:block;width:0;height:100%;background:#ffd27a;
 }
-
-.movie img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  animation: fadeIn .8s ease both;
+.controls{
+  display:flex;justify-content:space-between;
+  align-items:center;gap:8px;flex-wrap:wrap;
 }
-
-.movie:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    0deg,
-    #05020bee 0%,
-    #05020b88 34%,
-    transparent 72%
-  );
-  pointer-events: none;
+.small{font:13px/1.6 Arial,sans-serif;color:#d8c8e6}
+.sound{
+  position:fixed;right:12px;top:12px;z-index:10;
+  width:44px;height:44px;border-radius:50%;
+  color:white;background:#271337;border:1px solid #b68bda;
+  font-size:20px;cursor:pointer;
 }
-
-@keyframes fadeIn {
-  from {
-    opacity: .2;
-    transform: scale(1.035);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.tomb-scroll{overflow-x:auto;border-radius:10px}
+.tomb-picture{
+  position:relative;width:100%;min-width:680px;
+  aspect-ratio:1920/720;
 }
-
-.film-copy {
-  position: absolute;
-  z-index: 2;
-  left: 5%;
-  right: 5%;
-  bottom: 5%;
-  text-align: left;
-  text-shadow: 0 2px 5px #000;
+.tomb-picture>img{display:block;width:100%;height:100%}
+.hotspot{
+  position:absolute;top:29%;height:59%;width:13%;
+  border:2px solid transparent;border-radius:45% 45% 8px 8px;
+  background:transparent;cursor:pointer;
 }
-
-.film-label {
-  font: bold 12px Arial, sans-serif;
-  letter-spacing: 3px;
-  color: var(--gold);
+.hotspot:hover,.hotspot:focus-visible{
+  background:#ffd27a22;border-color:#ffd27a;
+  box-shadow:0 0 18px #ffd27a99;outline:none;
 }
-
-.film-copy p {
-  font-size: clamp(16px, 2.7vw, 25px);
-  line-height: 1.35;
-  margin: 8px 0 0;
+.hotspot span{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:5px 0;background:#100719d9;color:white;
+  font:bold 12px Arial,sans-serif;border-radius:5px;
 }
-
-.film-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 12px;
+.prize{
+  color:#ffd27a;font:bold clamp(38px,9vw,62px) Arial,sans-serif;
+  text-shadow:0 0 20px #ff8c30;margin:20px 0;
 }
-
-.progress {
-  height: 4px;
-  background: #3d2c4d;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-top: 10px;
-}
-
-.progress span {
-  display: block;
-  height: 100%;
-  background: var(--gold);
-  width: 0;
-  transition: width .2s linear;
-}
-
-.sound {
-  position: fixed;
-  right: 12px;
-  top: 12px;
-  z-index: 10;
-  border-radius: 50%;
-  background: #251137;
-  border: 1px solid #b58be0;
-  color: #fff;
-  width: 44px;
-  height: 44px;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.tomb-viewport {
-  overflow-x: auto;
-  border-radius: 12px;
-  scrollbar-color: #a77bd0 #160d20;
-}
-
-.tomb-art {
-  position: relative;
-  width: 100%;
-  min-width: 680px;
-  aspect-ratio: 1920 / 720;
-  overflow: hidden;
-}
-
-.tomb-art > img {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.tomb-hotspot {
-  position: absolute;
-  top: 29%;
-  height: 59%;
-  width: 13%;
-  border: 2px solid transparent;
-  border-radius: 45% 45% 8px 8px;
-  background: transparent;
-  color: transparent;
-  cursor: pointer;
-}
-
-.tomb-hotspot:hover,
-.tomb-hotspot:focus-visible {
-  border-color: #ffd27a;
-  background: #ffd27a22;
-  outline: none;
-  box-shadow: 0 0 20px #ffb94788;
-}
-
-.tomb-hotspot:after {
-  content: attr(aria-label);
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  color: #fff;
-  background: #160b22d9;
-  border-radius: 6px;
-  font: bold 12px Arial, sans-serif;
-  padding: 5px 1px;
-  text-shadow: 0 1px #000;
-}
-
-.prize {
-  font: bold clamp(36px, 9vw, 64px) Arial, sans-serif;
-  color: var(--gold);
-  text-shadow: 0 0 20px #ff8a28;
-  margin: 18px 0;
-}
-
-.rules {
-  font: 13px/1.7 Arial, sans-serif;
-  color: #eadcf3;
-}
-
-@media (max-width: 600px) {
-  main {
-    width: 96%;
-  }
-
-  .movie {
-    aspect-ratio: 4 / 3;
-  }
-
-  .film-copy p {
-    font-size: 17px;
-  }
-
-  .tomb-art {
-    min-width: 720px;
-  }
+.rules{font:13px/1.8 Arial,sans-serif;color:#eee0f5}
+@media(max-width:600px){
+  .movie{aspect-ratio:4/3}
+  .caption p{font-size:17px}
+  .tomb-picture{min-width:720px}
 }
 </style>
 </head>
 
 <body>
-
-<button class="sound" id="sound"
-  title="Activar o desactivar sonido"
-  aria-label="Sonido">🔇</button>
+<button class="sound" id="sound" aria-label="Activar sonido">🔇</button>
 
 <main>
-
 <h1>🎃 Tom y el Cementerio Maldito 🪦</h1>
 
-<!-- PORTADA -->
 <section id="intro" class="panel">
   <div class="movie">
-    <img src="escena1.png"
-      alt="Tom vampiro sale a pedir dulces">
+    <img src="escena1.png" alt="Tom sale a buscar dulces">
   </div>
-
-  <h2>Una historia de Halloween</h2>
-
-  <p>
-    Una noche, Tom salió a buscar dulces…
-    pero la niebla tenía otros planes. 🌕
-  </p>
-
-  <button class="btn" id="start">
-    ▶ VER LA HISTORIA
-  </button>
+  <h2>Una noche de Halloween</h2>
+  <p>Tom salió a buscar dulces, sin imaginar el oscuro secreto que encontraría…</p>
+  <button class="btn" id="start">▶ COMENZAR PELÍCULA</button>
 </section>
 
-<!-- PELÍCULA -->
 <section id="film" class="panel hidden">
-
   <div class="movie">
-    <img id="filmImage"
-      src="escena1.png"
-      alt="Escena de la historia">
-
-    <div class="film-copy">
-      <div class="film-label" id="filmLabel">
-        UNA NOCHE DE HALLOWEEN
-      </div>
-
+    <img id="filmImage" src="escena1.png" alt="Escena de Tom">
+    <div class="caption">
+      <small id="filmLabel"></small>
       <p id="filmText"></p>
     </div>
   </div>
-
-  <div class="progress">
-    <span id="progress"></span>
-  </div>
-
-  <div class="film-controls">
-    <span class="small" id="sceneCount">
-      ESCENA 1 DE 5
-    </span>
-
-    <button class="btn" id="skip">
-      Saltar historia ⏭
-    </button>
+  <div class="progress"><span id="progress"></span></div>
+  <div class="controls">
+    <span class="small" id="counter"></span>
+    <button class="btn" id="skip">Ir al cementerio ⏭</button>
   </div>
 </section>
 
-<!-- LAS SEIS TUMBAS -->
 <section id="game" class="panel hidden">
+  <h2>🪦 Las seis tumbas malditas</h2>
+  <p>Tom entró al cementerio. Seis tumbas lo esperaban bajo la luna. Elegí una para descubrir tu premio.</p>
 
-  <h2>Las seis tumbas misteriosas</h2>
-
-  <p>
-    Tom llegó al cementerio y encontró seis tumbas antiguas.
-    Elegí una para descubrir tu premio… si te animás. 🕯️
-  </p>
-
-  <div class="tomb-viewport">
-    <div class="tomb-art">
-
-      <img src="tumbas.png"
-        alt="Seis tumbas góticas bajo la luna llena">
-
-      <button class="tomb-hotspot"
-        style="left:3%"
-        aria-label="Elegir tumba 1"></button>
-
-      <button class="tomb-hotspot"
-        style="left:18%"
-        aria-label="Elegir tumba 2"></button>
-
-      <button class="tomb-hotspot"
-        style="left:34%"
-        aria-label="Elegir tumba 3"></button>
-
-      <button class="tomb-hotspot"
-        style="left:50%"
-        aria-label="Elegir tumba 4"></button>
-
-      <button class="tomb-hotspot"
-        style="left:66%"
-        aria-label="Elegir tumba 5"></button>
-
-      <button class="tomb-hotspot"
-        style="left:83%"
-        aria-label="Elegir tumba 6"></button>
-
+  <div class="tomb-scroll">
+    <div class="tomb-picture">
+      <img src="tumbas.png" alt="Las seis tumbas del cementerio">
+      <button class="hotspot" style="left:3%" aria-label="Tumba 1"><span>1</span></button>
+      <button class="hotspot" style="left:18%" aria-label="Tumba 2"><span>2</span></button>
+      <button class="hotspot" style="left:34%" aria-label="Tumba 3"><span>3</span></button>
+      <button class="hotspot" style="left:50%" aria-label="Tumba 4"><span>4</span></button>
+      <button class="hotspot" style="left:66%" aria-label="Tumba 5"><span>5</span></button>
+      <button class="hotspot" style="left:83%" aria-label="Tumba 6"><span>6</span></button>
     </div>
   </div>
 
-  <p class="small">
-    En celular, deslizá la imagen hacia los costados
-    para ver las seis tumbas.
-  </p>
-
-  <p class="rules">
-    ⚠️ Una sola oportunidad por navegador.
-  </p>
+  <p class="small">En el celular podés deslizar la imagen horizontalmente para ver las seis tumbas.</p>
+  <p class="rules">⚠️ Una oportunidad por navegador.</p>
 </section>
 
-<!-- PREMIO -->
 <section id="result" class="panel hidden">
-
-  <h2 id="resultTitle">
-    ¡La tumba reveló tu premio!
-  </h2>
-
+  <h2 id="resultTitle">¡La tumba reveló tu premio!</h2>
   <div class="prize" id="prize"></div>
-
   <p id="resultText"></p>
-
   <div class="rules">
     🎁 Sin mínimo de carga.<br>
     💰 Tope de bonificación: $30.000.<br>
     🔄 Para retirar con bono hay que duplicarlo.<br>
     🚫 No válido para ruleta.<br>
-    🎮 Válido para una sola plataforma,
-    una carga y un número.<br>
+    🎮 Una plataforma, una carga y un número.<br>
     🐱 Una vez por usuario.
   </div>
-
-  <a class="btn" id="claim"
-    href="https://wa.link/v2txxr"
-    target="_blank" rel="noopener">
-    💬 Reclamar mi premio
-  </a>
-
-  <p class="small">
-    Guardá una captura del resultado para reclamarlo.
-  </p>
+  <a class="btn" id="claim" href="https://wa.link/v2txxr" target="_blank" rel="noopener">💬 Reclamar mi premio</a>
+  <p class="small">Guardá una captura del resultado para reclamarlo.</p>
 </section>
 
-<p class="small">
-  🐱 Comunidad Tom · ¡Que la suerte te acompañe esta noche!
-</p>
-
+<p class="small">🐱 Comunidad Tom · Que la suerte te acompañe esta noche.</p>
 </main>
 
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-
-  const sections = ["intro", "film", "game", "result"];
-
-  function show(id) {
-    sections.forEach(section => {
-      $(section).classList.toggle("hidden", section !== id);
-    });
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  // HISTORIA EN ORDEN CRONOLÓGICO
-  const scenes = [
-    {
-      img: "escena1.png",
-      label: "UNA NOCHE DE HALLOWEEN",
-      text: "Tom se puso su traje de vampiro y salió feliz a pedir dulces por el vecindario."
-    },
-    {
-      img: "escena2.png",
-      label: "UN PASEO ENTRE CALABAZAS",
-      text: "Las casas brillaban con luces de Halloween. Tom siguió caminando, buscando más dulces."
-    },
-    {
-      img: "escena3.png",
-      label: "LA NIEBLA LO CUBRIÓ TODO",
-      text: "De pronto, una niebla espesa cubrió el camino. Tom se perdió y ya no reconocía las calles."
-    },
-    {
-      img: "escena4.png",
-      label: "LAS REJAS DEL CEMENTERIO",
-      text: "A través de la niebla, Tom vio unas rejas antiguas abiertas. Sin saber dónde estaba, se acercó con cautela."
-    },
-    {
-      img: "escena5.png",
-      label: "SEIS TUMBAS MISTERIOSAS",
-      text: "Tom entró al cementerio. Bajo la luna encontró seis tumbas tenebrosas… y algo parecía esperarlo."
-    }
-  ];
-
+  const sections = ["intro","film","game","result"];
+  const key = "tumbatom-premio-v3";
+  const duration = 6500;
   let current = 0;
   let timer = null;
-  let startedAt = 0;
   let soundOn = false;
   let audio = null;
 
-  const duration = 6500;
-
-  // EFECTO SONORO DE TERROR
-  function beep() {
-    if (!soundOn) return;
-
-    try {
-      audio = audio ||
-        new (window.AudioContext || window.webkitAudioContext)();
-
-      const oscillator = audio.createOscillator();
-      const gain = audio.createGain();
-
-      oscillator.type = "sine";
-
-      oscillator.frequency.setValueAtTime(
-        190, audio.currentTime
-      );
-
-      oscillator.frequency.exponentialRampToValueAtTime(
-        75, audio.currentTime + 0.45
-      );
-
-      gain.gain.setValueAtTime(
-        0.055, audio.currentTime
-      );
-
-      gain.gain.exponentialRampToValueAtTime(
-        0.001, audio.currentTime + 0.46
-      );
-
-      oscillator.connect(gain);
-      gain.connect(audio.destination);
-
-      oscillator.start();
-      oscillator.stop(audio.currentTime + 0.47);
-    } catch (error) {
-      // El juego sigue funcionando si el sonido no está disponible.
-    }
+  function show(id){
+    sections.forEach(s => $(s).classList.toggle("hidden",s !== id));
+    window.scrollTo({top:0,behavior:"smooth"});
   }
 
-  function stopTimer() {
-    if (timer) {
-      clearInterval(timer);
+  const scenes = [
+    {
+      img:"escena1.png",
+      label:"UNA NOCHE DE HALLOWEEN",
+      text:"Tom se puso su traje de vampiro y salió feliz a pedir dulces por el vecindario."
+    },
+    {
+      img:"escena2.png",
+      label:"EL VECINDARIO ENCANTADO",
+      text:"Las luces y las calabazas iluminaban la noche. Tom siguió caminando en busca de más dulces."
+    },
+    {
+      img:"escena3.png",
+      label:"PERDIDO EN LA NIEBLA",
+      text:"Una niebla espesa cubrió las calles. Tom se perdió y ya no pudo encontrar el camino de regreso."
+    },
+    {
+      img:"escena4.png",
+      label:"LAS REJAS ABIERTAS",
+      text:"A lo lejos descubrió las rejas de un cementerio. Estaban abiertas… y no había nadie que pudiera advertirle."
+    },
+    {
+      img:"escena5.png",
+      label:"EL CEMENTERIO MALDITO",
+      text:"Tom entró con cuidado. Bajo la luna encontró seis tumbas antiguas. Una de ellas guardaba una sorpresa."
     }
+  ];
 
+  function beep(){
+    if(!soundOn) return;
+    try{
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      const o = audio.createOscillator();
+      const g = audio.createGain();
+      o.type = "sine";
+      o.frequency.setValueAtTime(180,audio.currentTime);
+      o.frequency.exponentialRampToValueAtTime(75,audio.currentTime+.4);
+      g.gain.setValueAtTime(.05,audio.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.42);
+      o.connect(g); g.connect(audio.destination);
+      o.start(); o.stop(audio.currentTime+.43);
+    }catch(e){}
+  }
+
+  function stop(){
+    if(timer) clearInterval(timer);
     timer = null;
   }
 
-  // MOSTRAR CADA ESCENA
-  function renderScene() {
+  function renderScene(){
     const scene = scenes[current];
-    const image = $("filmImage");
-
-    image.style.animation = "none";
-    void image.offsetWidth;
-    image.style.animation = "fadeIn .8s ease both";
-
-    image.src = scene.img;
-    image.alt = scene.label;
-
+    const img = $("filmImage");
+    img.classList.remove("change");
+    void img.offsetWidth;
+    img.src = scene.img;
+    img.alt = scene.label;
+    img.classList.add("change");
     $("filmLabel").textContent = scene.label;
     $("filmText").textContent = scene.text;
+    $("counter").textContent = "ESCENA " + (current+1) + " DE " + scenes.length;
 
-    $("sceneCount").textContent =
-      `ESCENA ${current + 1} DE ${scenes.length}`;
-
-    $("progress").style.width = "0%";
-
-    startedAt = Date.now();
-
-    stopTimer();
-
+    let start = Date.now();
+    stop();
     timer = setInterval(() => {
-      const elapsed = Date.now() - startedAt;
-
-      $("progress").style.width =
-        Math.min(100, elapsed / duration * 100) + "%";
-
-      if (elapsed >= duration) {
-        nextScene();
-      }
-    }, 100);
+      const elapsed = Date.now()-start;
+      $("progress").style.width = Math.min(100,elapsed/duration*100)+"%";
+      if(elapsed >= duration) nextScene();
+    },100);
   }
 
-  function nextScene() {
-    stopTimer();
+  function nextScene(){
+    stop();
     beep();
-
-    if (current < scenes.length - 1) {
+    if(current < scenes.length-1){
       current++;
       renderScene();
-    } else {
+    }else{
       show("game");
     }
   }
 
-  $("start").addEventListener("click", () => {
-    current = 0;
+  $("start").addEventListener("click",()=>{
+    current=0;
     show("film");
     renderScene();
     beep();
   });
 
-  $("skip").addEventListener("click", () => {
-    stopTimer();
+  $("skip").addEventListener("click",()=>{
+    stop();
     show("game");
   });
 
-  $("sound").addEventListener("click", () => {
-    soundOn = !soundOn;
-    $("sound").textContent = soundOn ? "🔊" : "🔇";
-
-    if (soundOn) {
-      beep();
-    }
+  $("sound").addEventListener("click",()=>{
+    soundOn=!soundOn;
+    $("sound").textContent=soundOn?"🔊":"🔇";
+    beep();
   });
 
-  // PREMIOS Y PARTICIPACIÓN
-  const storageKey = "tumbatom-premio-v2";
-
-  const prizes = [
-    "$500",
-    "$1.000",
-    "10%",
-    "15%",
-    "25%",
-    "30%"
-  ];
-
-  function getSaved() {
-    try {
-      return JSON.parse(
-        localStorage.getItem(storageKey) || "null"
-      );
-    } catch (error) {
-      return null;
-    }
+  function getSaved(){
+    try{return JSON.parse(localStorage.getItem(key)||"null")}
+    catch(e){return null}
   }
 
-  function displayResult(data, repeated) {
-    $("resultTitle").textContent = repeated
-      ? "🪦 Ya participaste"
-      : "🎉 ¡Premio descubierto!";
-
+  function result(data,repeated){
+    $("resultTitle").textContent = repeated ? "🪦 Ya participaste" : "🎉 ¡Encontraste un premio!";
     $("prize").textContent = data.prize;
-
     $("resultText").textContent = repeated
-      ? `Tu premio guardado fue ${data.prize}, de la tumba ${data.grave}.`
-      : `¡Elegiste la tumba ${data.grave} y encontraste ${data.prize}!`;
+      ? "Tu premio guardado fue "+data.prize+" en la tumba "+data.grave+"."
+      : "Elegiste la tumba "+data.grave+" y encontraste "+data.prize+".";
 
-    const message =
-      `¡Hola, Comunidad Tom! 🎃 Elegí la tumba ${data.grave} ` +
-      `y gané ${data.prize} en Tom y el Cementerio Maldito. ` +
-      `Quiero reclamar mi premio.`;
-
-    $("claim").href =
-      "https://wa.me/?text=" + encodeURIComponent(message);
-
+    const message = "¡Hola, Comunidad Tom! 🎃 Elegí la tumba "+data.grave+
+      " y gané "+data.prize+" en Tom y el Cementerio Maldito. Quiero reclamar mi premio.";
+    $("claim").href="https://wa.me/?text="+encodeURIComponent(message);
     show("result");
   }
 
-  // ZONAS CLICKEABLES DE LAS SEIS TUMBAS
-  document.querySelectorAll(".tomb-hotspot").forEach(
-    (button, index) => {
+  const prizes = ["$500","$1.000","10%","15%","25%","30%"];
 
-      button.addEventListener("click", () => {
-        const previous = getSaved();
+  document.querySelectorAll(".hotspot").forEach((button,index)=>{
+    button.addEventListener("click",()=>{
+      const old = getSaved();
+      if(old){result(old,true);return;}
 
-        if (previous) {
-          displayResult(previous, true);
-          return;
-        }
+      const random = new Uint32Array(1);
+      if(window.crypto && window.crypto.getRandomValues){
+        window.crypto.getRandomValues(random);
+      }else{
+        random[0]=Math.floor(Math.random()*4294967295);
+      }
 
-        const randomValues = new Uint32Array(1);
+      const data={grave:index+1,prize:prizes[random[0]%prizes.length]};
+      try{localStorage.setItem(key,JSON.stringify(data))}catch(e){}
+      beep();
+      result(data,false);
+    });
+  });
 
-        if (window.crypto && window.crypto.getRandomValues) {
-          window.crypto.getRandomValues(randomValues);
-        } else {
-          randomValues[0] =
-            Math.floor(Math.random() * 4294967295);
-        }
-
-        const data = {
-          grave: index + 1,
-          prize: prizes[randomValues[0] % prizes.length]
-        };
-
-        try {
-          localStorage.setItem(
-            storageKey,
-            JSON.stringify(data)
-          );
-        } catch (error) {
-          // Si el navegador bloquea el almacenamiento,
-          // el resultado se muestra igualmente.
-        }
-
-        beep();
-        displayResult(data, false);
-      });
-    }
-  );
-
+  const old = getSaved();
+  if(old) result(old,true);
 })();
 </script>
-
 </body>
 </html>
