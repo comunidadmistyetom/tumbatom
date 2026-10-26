@@ -8,475 +8,427 @@
 <title>Tom y el Cementerio Maldito</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#08040d;
+  color:white;
+  font-family:Georgia,serif;
 }
 
-html, body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #08040d;
-  color: white;
-  font-family: Georgia, serif;
+button,a{-webkit-tap-highlight-color:transparent}
+
+.screen{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#08040d;
 }
 
-button, a {
-  -webkit-tap-highlight-color: transparent;
+.hidden{display:none!important}
+
+.full-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
 }
 
-.screen {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #08040d;
+.shade{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(0deg,#000d,transparent 75%);
 }
 
-.hidden {
-  display: none !important;
+.top-controls{
+  position:absolute;
+  top:max(12px,env(safe-area-inset-top));
+  right:12px;
+  z-index:20;
+  display:flex;
+  gap:8px;
 }
 
-.full-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+.round{
+  border:1px solid #ffffff80;
+  background:#130b1de8;
+  color:white;
+  border-radius:50%;
+  width:44px;
+  height:44px;
+  font-size:19px;
+  cursor:pointer;
 }
 
-.shade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(0deg, #000d, transparent 75%);
-}
-
-.top-controls {
-  position: absolute;
-  top: max(12px, env(safe-area-inset-top));
-  right: 12px;
-  z-index: 20;
-  display: flex;
-  gap: 8px;
-}
-
-.round {
-  border: 1px solid #ffffff80;
-  background: #130b1de8;
-  color: white;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  font-size: 19px;
-  cursor: pointer;
-}
-
-.action {
-  display: inline-block;
-  border: 1px solid #ffe0a1;
-  color: white;
-  background: linear-gradient(135deg, #8a36a8, #32103e);
-  padding: 13px 22px;
-  border-radius: 40px;
-  font: bold 15px Arial, sans-serif;
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 5px 25px #0009;
-  margin: 5px;
+.action{
+  display:inline-block;
+  border:1px solid #ffe0a1;
+  color:white;
+  background:linear-gradient(135deg,#8a36a8,#32103e);
+  padding:13px 22px;
+  border-radius:40px;
+  font:bold 15px Arial,sans-serif;
+  cursor:pointer;
+  text-decoration:none;
+  box-shadow:0 5px 25px #0009;
+  margin:5px;
 }
 
 /* PORTADA */
 
-#introImage {
-  animation: zoom 12s ease-in-out infinite alternate;
+#introImage{
+  animation:zoom 12s ease-in-out infinite alternate;
 }
 
-@keyframes zoom {
-  to { transform: scale(1.07); }
+@keyframes zoom{
+  to{transform:scale(1.07)}
 }
 
-.intro-content {
-  position: absolute;
-  z-index: 3;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 25px 18px max(9vh, 35px);
-  text-align: center;
-  background: linear-gradient(transparent 20%, #08040de8);
+.intro-content{
+  position:absolute;
+  z-index:3;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  padding:25px 18px max(9vh,35px);
+  text-align:center;
+  background:linear-gradient(transparent 20%,#08040de8);
 }
 
-.intro-content h1 {
-  color: #ffdc9b;
-  font-size: clamp(30px, 7vw, 70px);
-  text-shadow: 0 0 25px #9a40ff;
-  margin: 0 0 12px;
+.intro-content h1{
+  color:#ffdc9b;
+  font-size:clamp(30px,7vw,70px);
+  text-shadow:0 0 25px #9a40ff;
+  margin:0 0 12px;
 }
 
-.intro-content p {
-  font-size: clamp(16px, 2.5vw, 23px);
-  margin: 0 0 22px;
+.intro-content p{
+  font-size:clamp(16px,2.5vw,23px);
+  margin:0 0 22px;
 }
 
-/* HISTORIA CINEMATOGRÁFICA */
+/* HISTORIA */
 
-.film-progress {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 4px;
-  background: #ffffff30;
-  z-index: 5;
+.film-progress{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:4px;
+  background:#ffffff30;
+  z-index:5;
 }
 
-.film-progress span {
-  display: block;
-  width: 0;
-  height: 100%;
-  background: #ffd28a;
+.film-progress span{
+  display:block;
+  width:0;
+  height:100%;
+  background:#ffd28a;
 }
 
-#filmImage {
-  opacity: 1;
-  transition: opacity .4s ease;
+#filmImage{
+  opacity:1;
+  transition:opacity .4s ease;
 }
 
-#filmImage.fade {
-  opacity: 0;
+#filmImage.fade{opacity:0}
+
+.story-copy{
+  position:absolute;
+  z-index:3;
+  left:6%;
+  right:6%;
+  bottom:max(8%,30px);
+  text-align:left;
+  text-shadow:0 3px 8px #000,0 0 18px #000;
 }
 
-.story-copy {
-  position: absolute;
-  z-index: 3;
-  left: 6%;
-  right: 6%;
-  bottom: max(8%, 30px);
-  text-align: left;
-  text-shadow: 0 3px 8px #000, 0 0 18px #000;
+.eyebrow{
+  color:#ffd28a;
+  font:bold 12px Arial,sans-serif;
+  letter-spacing:3px;
+  margin-bottom:12px;
 }
 
-.eyebrow {
-  color: #ffd28a;
-  font: bold 12px Arial, sans-serif;
-  letter-spacing: 3px;
-  margin-bottom: 12px;
-}
-
-.story-copy p {
-  font-size: clamp(18px, 2.7vw, 29px);
-  line-height: 1.4;
-  max-width: 950px;
-  margin: 0;
+.story-copy p{
+  font-size:clamp(18px,2.7vw,29px);
+  line-height:1.4;
+  max-width:950px;
+  margin:0;
 }
 
 /* PANTALLA DE LAS TUMBAS */
 
-.tomb-title {
-  position: absolute;
-  z-index: 4;
-  top: max(12px, env(safe-area-inset-top));
-  left: 3%;
-  right: 3%;
-  text-align: center;
-  text-shadow: 0 2px 8px #000;
-  pointer-events: none;
+.tomb-title{
+  position:absolute;
+  z-index:4;
+  top:max(12px,env(safe-area-inset-top));
+  left:3%;
+  right:3%;
+  text-align:center;
+  text-shadow:0 2px 8px #000;
+  pointer-events:none;
 }
 
-.tomb-title h2 {
-  margin: 0 0 5px;
-  color: #ffe0a1;
-  font-size: clamp(22px, 4vw, 42px);
+.tomb-title h2{
+  margin:0 0 5px;
+  color:#ffe0a1;
+  font-size:clamp(22px,4vw,42px);
 }
 
-.tomb-title p {
-  margin: 0;
-  font-size: clamp(12px, 2vw, 18px);
+.tomb-title p{
+  margin:0;
+  font-size:clamp(12px,2vw,18px);
 }
 
 /*
- La imagen de las seis tumbas conserva su proporción.
- La distribución de los botones depende de esta zona,
- no de la altura total de la pantalla.
+ La imagen y los botones comparten el mismo contenedor.
+ Así las posiciones de las tumbas no dependen de toda
+ la altura de la pantalla.
 */
-.tomb-stage {
-  position: absolute;
-  z-index: 3;
-  top: 35%;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 1.92 / 1;
+
+.tomb-stage{
+  position:absolute;
+  z-index:3;
+  top:35%;
+  left:0;
+  width:100%;
+  aspect-ratio:1.92 / 1;
 }
 
-/* IMAGEN COMPLETA DE LAS SEIS TUMBAS */
-
-.tombs-sheet {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-  pointer-events: none;
-  z-index: 1;
+.tombs-sheet{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  display:block;
+  pointer-events:none;
+  z-index:1;
 }
 
-/* BOTONES INVISIBLES SOBRE CADA TUMBA */
+/* BOTONES INVISIBLES: TRES ARRIBA Y TRES ABAJO */
 
-.tomb-choice {
-  position: absolute;
-  z-index: 5;
-  width: 30%;
-  height: 47%;
-  margin: 0;
-  padding: 0;
-  border: 2px solid transparent;
-  border-radius: 22%;
-  background: transparent;
-  cursor: pointer;
-  touch-action: manipulation;
+.tomb-choice{
+  position:absolute;
+  z-index:5;
+  width:30%;
+  height:47%;
+  margin:0;
+  padding:0;
+  border:2px solid transparent;
+  border-radius:22%;
+  background:transparent;
+  cursor:pointer;
+  touch-action:manipulation;
 }
 
-/* TUMBAS 1, 2 Y 3: FILA SUPERIOR */
-
-.tomb1 {
-  left: 2%;
-  top: 1%;
-}
-
-.tomb2 {
-  left: 35%;
-  top: 1%;
-}
-
-.tomb3 {
-  left: 68%;
-  top: 1%;
-}
-
-/* TUMBAS 4, 5 Y 6: FILA INFERIOR */
-
-.tomb4 {
-  left: 2%;
-  top: 51%;
-}
-
-.tomb5 {
-  left: 35%;
-  top: 51%;
-}
-
-.tomb6 {
-  left: 68%;
-  top: 51%;
-}
-
-/* En desarrollo, el borde permite comprobar la posición.
-   Los botones vuelven a ser invisibles normalmente. */
 .tomb-choice:hover,
-.tomb-choice:focus-visible {
-  outline: none;
-  border-color: #ffd27a99;
-  background: #ffd27a12;
-  box-shadow: 0 0 15px #ffd27a44;
+.tomb-choice:focus-visible{
+  outline:none;
+  border-color:#ffd27a99;
+  background:#ffd27a12;
+  box-shadow:0 0 15px #ffd27a44;
 }
 
-.tomb-choice:disabled {
-  cursor: default;
-}
+.tomb-choice:disabled{cursor:default}
 
-/* RESULTADO DEL PREMIO */
+/* FILA SUPERIOR */
 
-.result-content {
-  position: absolute;
-  z-index: 4;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  text-align: center;
-  background: radial-gradient(
+.tomb1{left:2%;top:1%}
+.tomb2{left:35%;top:1%}
+.tomb3{left:68%;top:1%}
+
+/* FILA INFERIOR */
+
+.tomb4{left:2%;top:51%}
+.tomb5{left:35%;top:51%}
+.tomb6{left:68%;top:51%}
+
+/* PANTALLA DEL PREMIO */
+
+.result-content{
+  position:absolute;
+  z-index:4;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  text-align:center;
+  background:radial-gradient(
     ellipse at center,
     #341044ed 0%,
     #100817f5 58%,
     #050208 100%
   );
-  overflow-y: auto;
-  animation: revealPrize 1.2s ease-out both;
+  overflow-y:auto;
+  animation:revealPrize 1.2s ease-out both;
 }
 
-.result-content::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
+.result-content::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(
     circle at center,
     #ffdc9b50 0%,
     #9d35ff22 30%,
     transparent 65%
   );
-  animation: magicFlash 1.4s ease-out both;
+  animation:magicFlash 1.4s ease-out both;
 }
 
-.result-content > * {
-  position: relative;
-  z-index: 1;
+.result-content>*{
+  position:relative;
+  z-index:1;
 }
 
-@keyframes revealPrize {
-  0% {
-    opacity: 0;
-    transform: scale(.65);
-    filter: brightness(0);
+@keyframes revealPrize{
+  0%{
+    opacity:0;
+    transform:scale(.65);
+    filter:brightness(0);
   }
-  40% {
-    opacity: 1;
-    transform: scale(1.06);
-    filter: brightness(1.8);
+  40%{
+    opacity:1;
+    transform:scale(1.06);
+    filter:brightness(1.8);
   }
-  70% {
-    transform: scale(.97);
-    filter: brightness(1.2);
+  70%{
+    transform:scale(.97);
+    filter:brightness(1.2);
   }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: brightness(1);
-  }
-}
-
-@keyframes magicFlash {
-  0% { opacity: 0; }
-  25% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-.result-content h2 {
-  color: #ffe0a1;
-  font-size: clamp(26px, 5vw, 48px);
-  text-shadow: 0 0 20px #9c3fff;
-  margin: 0 0 10px;
-  animation: titleAppear .8s ease-out both;
-}
-
-@keyframes titleAppear {
-  from {
-    opacity: 0;
-    transform: translateY(-25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  100%{
+    opacity:1;
+    transform:scale(1);
+    filter:brightness(1);
   }
 }
 
-.prize {
-  font: bold clamp(42px, 10vw, 78px) Arial, sans-serif;
-  color: #ffda79;
-  text-shadow: 0 0 20px #ff832d;
-  margin: 12px 0;
+@keyframes magicFlash{
+  0%{opacity:0}
+  25%{opacity:1}
+  100%{opacity:0}
+}
+
+.result-content h2{
+  color:#ffe0a1;
+  font-size:clamp(26px,5vw,48px);
+  text-shadow:0 0 20px #9c3fff;
+  margin:0 0 10px;
+  animation:titleAppear .8s ease-out both;
+}
+
+@keyframes titleAppear{
+  from{
+    opacity:0;
+    transform:translateY(-25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.prize{
+  font:bold clamp(42px,10vw,78px) Arial,sans-serif;
+  color:#ffda79;
+  text-shadow:0 0 20px #ff832d;
+  margin:12px 0;
   animation:
     prizeAppear 1s .2s ease-out both,
     prizeGlow 1.3s 1.2s ease-in-out infinite alternate;
 }
 
-@keyframes prizeAppear {
-  0% {
-    opacity: 0;
-    transform: scale(.25) rotate(-8deg);
-    filter: blur(12px);
+@keyframes prizeAppear{
+  0%{
+    opacity:0;
+    transform:scale(.25) rotate(-8deg);
+    filter:blur(12px);
   }
-  70% {
-    opacity: 1;
-    transform: scale(1.15) rotate(2deg);
-    filter: blur(0);
+  70%{
+    opacity:1;
+    transform:scale(1.15) rotate(2deg);
+    filter:blur(0);
   }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes prizeGlow {
-  from { text-shadow: 0 0 12px #ff832d; }
-  to {
-    text-shadow: 0 0 30px #ffda79, 0 0 55px #ff832d;
+  100%{
+    opacity:1;
+    transform:scale(1) rotate(0);
+    filter:blur(0);
   }
 }
 
-.conditions {
-  font: 14px/1.8 Arial, sans-serif;
-  margin: 8px 0 14px;
+@keyframes prizeGlow{
+  from{text-shadow:0 0 12px #ff832d}
+  to{text-shadow:0 0 30px #ffda79,0 0 55px #ff832d}
 }
 
-.muted {
-  font: 12px Arial, sans-serif;
-  color: #e3d7eb;
-  margin-top: 12px;
+.conditions{
+  font:14px/1.8 Arial,sans-serif;
+  margin:8px 0 14px;
 }
 
-/* AJUSTES PARA CELULARES */
-
-@media (max-width: 600px) {
-  .tomb-title {
-    top: max(20px, env(safe-area-inset-top));
-    left: 2%;
-    right: 2%;
-  }
-
-  .tomb-title h2 {
-    font-size: clamp(21px, 5vw, 30px);
-  }
-
-  .tomb-title p {
-    font-size: 12px;
-  }
-
-  /*
-   La imagen de tumbas se muestra como una lámina horizontal
-   con sus proporciones originales, sin estirarla verticalmente.
-  */
-  .tomb-stage {
-    top: 38%;
-    left: 0;
-    width: 100%;
-    aspect-ratio: 1.92 / 1;
-  }
-
-  .tomb-choice {
-    width: 30%;
-    height: 47%;
-  }
-
-  .tomb1 { left: 2%; top: 1%; }
-  .tomb2 { left: 35%; top: 1%; }
-  .tomb3 { left: 68%; top: 1%; }
-
-  .tomb4 { left: 2%; top: 51%; }
-  .tomb5 { left: 35%; top: 51%; }
-  .tomb6 { left: 68%; top: 51%; }
+.muted{
+  font:12px Arial,sans-serif;
+  color:#e3d7eb;
+  margin-top:12px;
 }
 
-@media (max-height: 500px) {
-  .tomb-title h2 {
-    font-size: 22px;
+/* CELULARES */
+
+@media(max-width:600px){
+  .tomb-title{
+    top:max(20px,env(safe-area-inset-top));
+    left:2%;
+    right:2%;
   }
 
-  .result-content {
-    justify-content: flex-start;
+  .tomb-title h2{
+    font-size:clamp(21px,5vw,30px);
   }
+
+  .tomb-title p{font-size:12px}
+
+  .tomb-stage{
+    top:38%;
+    left:0;
+    width:100%;
+    aspect-ratio:1.92 / 1;
+  }
+
+  .tomb-choice{
+    width:30%;
+    height:47%;
+  }
+
+  .tomb1{left:2%;top:1%}
+  .tomb2{left:35%;top:1%}
+  .tomb3{left:68%;top:1%}
+
+  .tomb4{left:2%;top:51%}
+  .tomb5{left:35%;top:51%}
+  .tomb6{left:68%;top:51%}
+}
+
+@media(max-height:500px){
+  .tomb-title h2{font-size:22px}
+  .result-content{justify-content:flex-start}
 }
 </style>
 </head>
@@ -541,7 +493,6 @@ button, a {
     <p>Elegí una tumba para descubrir tu premio… si te animás.</p>
   </div>
 
-  <!-- IMPORTANTE: imagen y botones comparten la misma zona -->
   <div class="tomb-stage">
     <img class="tombs-sheet"
          src="tumbas-nuevas.png"
@@ -556,7 +507,7 @@ button, a {
   </div>
 </section>
 
-<!-- RESULTADO -->
+<!-- PREMIO -->
 <section id="result" class="screen hidden">
   <img class="full-image"
        src="fondo-cementerio.png" alt="Cementerio maldito">
@@ -577,10 +528,8 @@ button, a {
     </div>
 
     <a class="action" id="claim"
-       href="https://wa.link/03leae"
-       target="_blank" rel="noopener">
-      💬 RECLAMAR PREMIO
-    </a>
+       href="https://wa.link/ofgphj"
+       target="_blank" rel="noopener">💬 RECLAMAR MI PREMIO</a>
 
     <button class="action" id="playAgain">🔄 JUGAR OTRA VEZ</button>
     <p class="muted">Guardá una captura de tu resultado.</p>
@@ -590,20 +539,21 @@ button, a {
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-
-  const storageKey = "tumbatom-premio-v12";
-
-  // CADA IMAGEN DE LA HISTORIA DURA 4,5 SEGUNDOS.
+  const storageKey = "tumbatom-premio-v13";
   const sceneDuration = 4500;
 
-  const prizes = [
-    { label: "500 fichas", url: "https://wa.link/4fwjrp" },
-    { label: "1.000 fichas", url: "https://wa.link/p50i1t" },
-    { label: "10%", url: "https://wa.link/jlgka3" },
-    { label: "15%", url: "https://wa.link/roiv28" },
-    { label: "25%", url: "https://wa.link/03leae" },
-    { label: "30%", url: "https://wa.link/ofgphj" }
-  ];
+  /*
+    PREMIOS FIJOS POR TUMBA.
+    Cada tumba siempre entrega el premio indicado.
+  */
+  const prizes = {
+    1: { label:"30%", url:"https://wa.link/ofgphj" },
+    2: { label:"25%", url:"https://wa.link/03leae" },
+    3: { label:"15%", url:"https://wa.link/roiv28" },
+    4: { label:"500 fichas regaladas", url:"https://wa.link/4fwjrp" },
+    5: { label:"1.000 fichas regaladas", url:"https://wa.link/p50i1t" },
+    6: { label:"10%", url:"https://wa.link/jlgka3" }
+  };
 
   const suspense = $("suspenseAudio");
   const terror = $("terrorAudio");
@@ -619,38 +569,37 @@ button, a {
   let choosingTomb = false;
   let soundOn = true;
   let musicMode = "";
-  let sceneStartedAt = 0;
 
   const scenes = [
     {
-      image: "escena1.png",
-      chapter: "CAPÍTULO I · NOCHE DE HALLOWEEN",
-      text: "Tom se puso su traje de vampiro y salió feliz a pedir dulces por el vecindario."
+      image:"escena1.png",
+      chapter:"CAPÍTULO I · NOCHE DE HALLOWEEN",
+      text:"Tom se puso su traje de vampiro y salió feliz a pedir dulces por el vecindario."
     },
     {
-      image: "escena2.png",
-      chapter: "CAPÍTULO II · EL VECINDARIO",
-      text: "Las casas brillaban con luces de Halloween. Tom siguió caminando en busca de más dulces."
+      image:"escena2.png",
+      chapter:"CAPÍTULO II · EL VECINDARIO",
+      text:"Las casas brillaban con luces de Halloween. Tom siguió caminando en busca de más dulces."
     },
     {
-      image: "escena3.png",
-      chapter: "CAPÍTULO III · PERDIDO EN LA NIEBLA",
-      text: "Una niebla espesa cubrió el camino. Tom se perdió y no encontraba la forma de regresar."
+      image:"escena3.png",
+      chapter:"CAPÍTULO III · PERDIDO EN LA NIEBLA",
+      text:"Una niebla espesa cubrió el camino. Tom se perdió y no encontraba la forma de regresar."
     },
     {
-      image: "escena4.png",
-      chapter: "CAPÍTULO IV · LAS REJAS ABIERTAS",
-      text: "A lo lejos descubrió la entrada de un cementerio. Las rejas estaban abiertas… y todo estaba en silencio."
+      image:"escena4.png",
+      chapter:"CAPÍTULO IV · LAS REJAS ABIERTAS",
+      text:"A lo lejos descubrió la entrada de un cementerio. Las rejas estaban abiertas… y todo estaba en silencio."
     },
     {
-      image: "escena5.png",
-      chapter: "CAPÍTULO V · EL CEMENTERIO MALDITO",
-      text: "Tom entró lentamente. Bajo la luna encontró seis tumbas misteriosas. ¿Qué secreto escondían?"
+      image:"escena5.png",
+      chapter:"CAPÍTULO V · EL CEMENTERIO MALDITO",
+      text:"Tom entró lentamente. Bajo la luna encontró seis tumbas misteriosas. ¿Qué secreto escondían?"
     }
   ];
 
   function show(id) {
-    ["intro", "film", "tombs", "result"].forEach(name => {
+    ["intro","film","tombs","result"].forEach(name => {
       $(name).classList.toggle("hidden", name !== id);
     });
   }
@@ -693,7 +642,7 @@ button, a {
     try {
       await element.play();
     } catch (error) {
-      console.error("Error de audio:", element.src, error);
+      console.error("No se pudo reproducir el audio:", element.src, error);
     }
   }
 
@@ -741,10 +690,11 @@ button, a {
 
     setTimeout(() => {
       image.onload = () => image.classList.remove("fade");
+
       image.onerror = () => {
         image.classList.remove("fade");
         $("subtitle").textContent =
-          "No se pudo cargar " + scene.image + ". Revisá el nombre del archivo.";
+          "No se pudo cargar " + scene.image + ". Revisá el archivo en GitHub.";
       };
 
       image.src = scene.image;
@@ -755,10 +705,10 @@ button, a {
       }
     }, 250);
 
-    sceneStartedAt = Date.now();
+    const started = Date.now();
 
     timer = setInterval(() => {
-      const elapsed = Date.now() - sceneStartedAt;
+      const elapsed = Date.now() - started;
 
       $("progress").style.width =
         Math.min(100, elapsed / sceneDuration * 100) + "%";
@@ -803,10 +753,10 @@ button, a {
     $("resultText").textContent = repeated
       ? "Tu premio guardado fue " + data.prize +
         " en la tumba " + data.grave + "."
-      : "Elegiste la tumba " + data.grave +
-        " y descubriste " + data.prize + ".";
+      : "¡La tumba " + data.grave +
+        " te ha revelado tu premio!";
 
-    const prizeInfo = prizes.find(p => p.label === data.prize);
+    const prizeInfo = prizes[data.grave];
 
     if (prizeInfo) {
       $("claim").href = prizeInfo.url;
@@ -878,15 +828,13 @@ button, a {
       stopBackgroundMusic();
 
       const grave = Number(button.dataset.grave);
-      const random = new Uint32Array(1);
+      const prizeInfo = prizes[grave];
 
-      if (window.crypto && window.crypto.getRandomValues) {
-        window.crypto.getRandomValues(random);
-      } else {
-        random[0] = Math.floor(Math.random() * 4294967295);
-      }
-
-      const prizeInfo = prizes[random[0] % prizes.length];
+      /*
+        IMPORTANTE:
+        El premio se obtiene según el número de tumba.
+        No hay sorteo aleatorio ni premios repetidos al azar.
+      */
       const data = {
         grave: grave,
         prize: prizeInfo.label
@@ -896,7 +844,6 @@ button, a {
         localStorage.setItem(storageKey, JSON.stringify(data));
       } catch (e) {}
 
-      // RISA DE BRUJA AL ELEGIR LA TUMBA.
       if (soundOn) {
         witch.pause();
         witch.currentTime = 0;
@@ -906,12 +853,11 @@ button, a {
 
         if (audioPromise) {
           audioPromise.catch(error => {
-            console.error("No se pudo reproducir la risa:", error);
+            console.error("No se pudo reproducir la risa de bruja:", error);
           });
         }
       }
 
-      // REVELACIÓN RÁPIDA, CON ANIMACIÓN.
       setTimeout(() => {
         displayResult(data, false);
         choosingTomb = false;
@@ -940,7 +886,6 @@ button, a {
 
     show("intro");
   });
-
 })();
 </script>
 
