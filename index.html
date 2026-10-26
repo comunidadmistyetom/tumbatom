@@ -9,161 +9,130 @@
 
 <style>
 *{box-sizing:border-box}
-
 html,body{
   margin:0;width:100%;height:100%;overflow:hidden;
-  background:#08040d;color:white;font-family:Georgia,serif;
+  background:#08040d;color:white;font-family:Georgia,serif
 }
-
 button,a{-webkit-tap-highlight-color:transparent}
-
 .screen{
   position:fixed;inset:0;width:100%;height:100%;
-  overflow:hidden;background:#08040d;
+  overflow:hidden;background:#08040d
 }
 .hidden{display:none!important}
-
 .full-image{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center;display:block;
+  object-fit:cover;object-position:center;display:block
 }
-
 .shade{
   position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(0deg,rgba(0,0,0,.84),transparent 75%);
+  background:linear-gradient(0deg,rgba(0,0,0,.84),transparent 75%)
 }
-
-#introImage{
-  animation:slowZoom 12s ease-in-out infinite alternate;
-}
-@keyframes slowZoom{
-  from{transform:scale(1)}
-  to{transform:scale(1.07)}
-}
+#introImage{animation:zoom 12s ease-in-out infinite alternate}
+@keyframes zoom{to{transform:scale(1.07)}}
 
 .top-controls{
   position:absolute;top:15px;right:15px;
-  z-index:10;display:flex;gap:8px;
+  z-index:10;display:flex;gap:8px
 }
-
 .round{
   border:1px solid #ffffff80;background:#130b1de8;color:white;
-  border-radius:50%;width:44px;height:44px;
-  font-size:19px;cursor:pointer;
+  border-radius:50%;width:44px;height:44px;font-size:19px;
+  cursor:pointer
 }
-
 .action{
   display:inline-block;border:1px solid #ffe0a1;color:white;
   background:linear-gradient(135deg,#8a36a8,#32103e);
   padding:13px 22px;border-radius:40px;
   font:bold 15px Arial,sans-serif;cursor:pointer;
-  text-decoration:none;box-shadow:0 5px 25px #0009;
-  margin:5px;
+  text-decoration:none;box-shadow:0 5px 25px #0009;margin:5px
 }
-
 .intro-content{
   position:absolute;z-index:3;inset:0;
   display:flex;flex-direction:column;align-items:center;
   justify-content:flex-end;padding:25px 18px 9vh;
-  text-align:center;background:linear-gradient(transparent 20%,#08040de8);
+  text-align:center;background:linear-gradient(transparent 20%,#08040de8)
 }
-
 .intro-content h1{
   color:#ffdc9b;font-size:clamp(30px,7vw,70px);
-  text-shadow:0 0 25px #9a40ff;margin:0 0 12px;
+  text-shadow:0 0 25px #9a40ff;margin:0 0 12px
 }
-.intro-content p{
-  font-size:clamp(16px,2.5vw,23px);margin:0 0 22px;
-}
+.intro-content p{font-size:clamp(16px,2.5vw,23px);margin:0 0 22px}
 
 .film-progress{
-  position:absolute;left:0;right:0;top:0;
-  height:4px;background:#ffffff30;z-index:5;
+  position:absolute;left:0;right:0;top:0;height:4px;
+  background:#ffffff30;z-index:5
 }
-.film-progress span{
-  display:block;width:0;height:100%;background:#ffd28a;
-}
+.film-progress span{display:block;width:0;height:100%;background:#ffd28a}
 #filmImage{opacity:1;transition:opacity .45s ease}
 #filmImage.fade{opacity:0}
-
 .story-copy{
   position:absolute;z-index:3;left:6%;right:6%;bottom:9%;
-  text-align:left;text-shadow:0 3px 8px #000,0 0 18px #000;
+  text-align:left;text-shadow:0 3px 8px #000,0 0 18px #000
 }
 .eyebrow{
   color:#ffd28a;font:bold 12px Arial,sans-serif;
-  letter-spacing:3px;margin-bottom:12px;
+  letter-spacing:3px;margin-bottom:12px
 }
 .story-copy p{
   font-size:clamp(18px,2.7vw,29px);
-  line-height:1.4;max-width:950px;margin:0;
+  line-height:1.4;max-width:950px;margin:0
 }
 
-/* TITULO DEL CEMENTERIO */
 .tomb-title{
   position:absolute;z-index:4;top:3%;left:3%;right:3%;
   text-align:center;text-shadow:0 2px 8px black,0 0 15px black;
-  pointer-events:none;
+  pointer-events:none
 }
 .tomb-title h2{
   margin:0 0 6px;color:#ffe0a1;
-  font-size:clamp(22px,4vw,42px);
+  font-size:clamp(22px,4vw,42px)
 }
-.tomb-title p{
-  margin:0;font-size:clamp(12px,2vw,19px);
-}
+.tomb-title p{margin:0;font-size:clamp(12px,2vw,19px)}
 
-/* IMAGEN TRANSPARENTE DE LAS SEIS TUMBAS */
 .tombs-sheet{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:contain;object-position:center;
-  z-index:2;pointer-events:none;
+  z-index:2;pointer-events:none
 }
 
-/* BOTONES INVISIBLES PEQUEÑOS, UNO POR TUMBA.
-   Ajustados para seis tumbas en una sola fila. */
+/* Zonas de selección pequeñas para seis tumbas en una fila.
+   Se pueden ajustar cambiando left, top, width y height. */
 .tomb-choice{
   position:absolute;z-index:5;
-  top:43%;height:38%;width:12%;
+  width:10%;height:34%;top:43%;
   padding:0;border:2px solid transparent;
-  border-radius:45% 45% 8px 8px;
-  background:transparent;cursor:pointer;
+  border-radius:40% 40% 8px 8px;
+  background:transparent;cursor:pointer
 }
-
-.tomb-choice:hover,
-.tomb-choice:focus-visible{
+.tomb-choice:hover,.tomb-choice:focus-visible{
   outline:none;border-color:#ffd27a99;
-  background:#ffd27a12;
-  box-shadow:0 0 15px #ffd27a44;
+  background:#ffd27a12;box-shadow:0 0 15px #ffd27a44
 }
-
-.tomb1{left:2%}
-.tomb2{left:18.4%}
-.tomb3{left:34.8%}
-.tomb4{left:51.2%}
-.tomb5{left:67.6%}
-.tomb6{left:84%}
-
+.tomb1{left:3%}
+.tomb2{left:19.4%}
+.tomb3{left:35.8%}
+.tomb4{left:52.2%}
+.tomb5{left:68.6%}
+.tomb6{left:85%}
 .tomb-choice:disabled{cursor:default}
 
-/* RESULTADO */
 .result-content{
   position:absolute;z-index:4;inset:0;
   display:flex;flex-direction:column;justify-content:center;
   align-items:center;padding:20px;text-align:center;
-  background:#08040dd9;overflow-y:auto;
+  background:#08040dd9;overflow-y:auto
 }
 .result-content h2{
   color:#ffe0a1;font-size:clamp(26px,5vw,48px);
-  text-shadow:0 0 20px #9c3fff;margin:0 0 10px;
+  text-shadow:0 0 20px #9c3fff;margin:0 0 10px
 }
 .prize{
   font:bold clamp(42px,10vw,78px) Arial,sans-serif;
-  color:#ffda79;text-shadow:0 0 30px #ff832d;margin:12px 0;
+  color:#ffda79;text-shadow:0 0 30px #ff832d;margin:12px 0
 }
 .conditions{
   font:14px/1.8 Arial,sans-serif;
-  text-shadow:0 2px 5px #000;margin:8px 0 14px;
+  text-shadow:0 2px 5px #000;margin:8px 0 14px
 }
 .muted{font:12px Arial,sans-serif;color:#e3d7eb;margin-top:12px}
 
@@ -174,20 +143,13 @@ button,a{-webkit-tap-highlight-color:transparent}
   .tomb-title{top:4%}
   .tomb-title h2{font-size:25px}
   .tomb-title p{font-size:13px}
-  .tomb-choice{top:45%;height:34%;width:12%}
-  .tomb1{left:2%}
-  .tomb2{left:18.4%}
-  .tomb3{left:34.8%}
-  .tomb4{left:51.2%}
-  .tomb5{left:67.6%}
-  .tomb6{left:84%}
+  .tomb-choice{top:45%;height:30%;width:10%}
 }
-
 @media(max-height:500px){
   .tomb-title{top:2%}
   .tomb-title h2{font-size:22px;margin-bottom:3px}
   .tomb-title p{font-size:12px}
-  .tomb-choice{top:35%;height:55%}
+  .tomb-choice{top:35%;height:48%}
   .result-content{justify-content:flex-start}
 }
 </style>
@@ -195,16 +157,19 @@ button,a{-webkit-tap-highlight-color:transparent}
 
 <body>
 
+<!-- AUDIOS: los tres archivos deben estar en la raíz del repositorio -->
+<audio id="musicSuspense" src="suspenso.mp3" preload="auto" loop></audio>
+<audio id="musicTerror" src="terror.mp3" preload="auto" loop></audio>
+<audio id="witchLaugh" src="risa-bruja.mp3" preload="auto"></audio>
+
 <!-- PORTADA -->
 <section id="intro" class="screen">
   <img id="introImage" class="full-image"
        src="escena1.png" alt="Tom sale a buscar dulces">
   <div class="shade"></div>
-
   <div class="top-controls">
-    <button class="round sound-button" aria-label="Activar sonido">🔇</button>
+    <button class="round sound-button" aria-label="Activar o silenciar sonido">🔊</button>
   </div>
-
   <div class="intro-content">
     <h1>Tom y el Cementerio Maldito</h1>
     <p>Una noche de Halloween, una aventura aterradora…</p>
@@ -212,35 +177,30 @@ button,a{-webkit-tap-highlight-color:transparent}
   </div>
 </section>
 
-<!-- PELICULA -->
+<!-- CORTOMETRAJE -->
 <section id="film" class="screen hidden">
   <img id="filmImage" class="full-image"
        src="escena1.png" alt="Escena de la película">
   <div class="shade"></div>
-
   <div class="film-progress"><span id="progress"></span></div>
-
   <div class="top-controls">
-    <button class="round sound-button" aria-label="Activar sonido">🔇</button>
+    <button class="round sound-button" aria-label="Activar o silenciar sonido">🔊</button>
     <button class="round" id="skip" aria-label="Saltar historia">⏭</button>
   </div>
-
   <div class="story-copy">
     <div class="eyebrow" id="chapter"></div>
     <p id="subtitle"></p>
   </div>
 </section>
 
-<!-- CEMENTERIO Y TUMBAS -->
+<!-- CEMENTERIO -->
 <section id="tombs" class="screen hidden">
   <img class="full-image" src="fondo-cementerio.png"
        alt="Cementerio gótico bajo la luna">
   <div class="shade"></div>
-
   <div class="top-controls">
-    <button class="round sound-button" aria-label="Activar sonido">🔊</button>
+    <button class="round sound-button" aria-label="Activar o silenciar sonido">🔊</button>
   </div>
-
   <div class="tomb-title">
     <h2>Las seis tumbas malditas</h2>
     <p>Elegí una tumba para descubrir tu premio… si te animás.</p>
@@ -257,17 +217,14 @@ button,a{-webkit-tap-highlight-color:transparent}
   <button class="tomb-choice tomb6" aria-label="Elegir tumba 6"></button>
 </section>
 
-<!-- PANTALLA DEL PREMIO -->
+<!-- PREMIO -->
 <section id="result" class="screen hidden">
-  <img class="full-image" src="fondo-cementerio.png"
-       alt="Cementerio maldito">
+  <img class="full-image" src="fondo-cementerio.png" alt="Cementerio maldito">
   <div class="shade"></div>
-
   <div class="result-content">
     <h2 id="resultTitle">¡La tumba reveló tu premio!</h2>
     <div class="prize" id="prize"></div>
     <p id="resultText"></p>
-
     <div class="conditions">
       🎁 Sin mínimo de carga.<br>
       💰 Tope de bonificación: $30.000.<br>
@@ -276,13 +233,11 @@ button,a{-webkit-tap-highlight-color:transparent}
       🎮 Una plataforma, una carga y un número.<br>
       🐱 Una vez por usuario.
     </div>
-
     <a class="action" id="claim"
        href="https://wa.link/v2txxr"
        target="_blank" rel="noopener">
        💬 RECLAMAR MI PREMIO
     </a>
-
     <button class="action" id="playAgain">🔄 JUGAR OTRA VEZ</button>
     <p class="muted">Guardá una captura de tu resultado.</p>
   </div>
@@ -292,9 +247,24 @@ button,a{-webkit-tap-highlight-color:transparent}
 (() => {
   const $ = id => document.getElementById(id);
   const screens = ["intro","film","tombs","result"];
-  const storageKey = "tumbatom-premio-sonidos-v2";
+  const storageKey = "tumbatom-premio-audio-v3";
   const duration = 3500;
   const prizes = ["$500","$1.000","10%","15%","25%","30%"];
+
+  const suspense = $("musicSuspense");
+  const terror = $("musicTerror");
+  const laugh = $("witchLaugh");
+
+  let current = 0;
+  let timer = null;
+  let soundOn = true;
+  let choosingTomb = false;
+  let audioStarted = false;
+
+  // Volumen alto, pero sin distorsionar el audio original.
+  suspense.volume = 0.85;
+  terror.volume = 0.85;
+  laugh.volume = 1.0;
 
   const scenes = [
     {
@@ -324,192 +294,80 @@ button,a{-webkit-tap-highlight-color:transparent}
     }
   ];
 
-  let current = 0;
-  let timer = null;
-  let soundOn = false;
-  let audio = null;
-  let musicNodes = [];
-  let musicGain = null;
-  let musicTimer = null;
-  let musicMode = "";
-  let choosingTomb = false;
-
-  function show(name){
-    screens.forEach(id => $(id).classList.toggle("hidden",id !== name));
+  function show(name) {
+    screens.forEach(id => $(id).classList.toggle("hidden", id !== name));
   }
 
-  function stopTimer(){
-    if(timer) clearInterval(timer);
+  function stopTimer() {
+    if (timer) clearInterval(timer);
     timer = null;
   }
 
-  function initAudio(){
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if(!AudioCtx) return false;
-
-    audio = audio || new AudioCtx();
-
-    if(audio.state === "suspended") audio.resume();
-    return true;
+  function pauseAudio(audioElement) {
+    audioElement.pause();
+    try { audioElement.currentTime = 0; } catch (e) {}
   }
 
-  function stopMusic(){
-    if(musicTimer) clearInterval(musicTimer);
-    musicTimer = null;
+  function stopAllAudio() {
+    pauseAudio(suspense);
+    pauseAudio(terror);
+    pauseAudio(laugh);
+  }
 
-    if(musicGain && audio){
-      try{
-        musicGain.gain.cancelScheduledValues(audio.currentTime);
-        musicGain.gain.setTargetAtTime(0.0001,audio.currentTime,0.08);
-      }catch(e){}
+  function playAudio(audioElement) {
+    if (!soundOn) return;
+    audioElement.play().catch(error => {
+      console.warn("El navegador no pudo reproducir el audio:", error);
+    });
+  }
+
+  function startSuspense() {
+    if (!soundOn) return;
+    pauseAudio(terror);
+    pauseAudio(laugh);
+
+    if (suspense.paused) {
+      suspense.currentTime = 0;
+      playAudio(suspense);
     }
-
-    musicNodes.forEach(node => {
-      try{if(node.stop) node.stop();}catch(e){}
-      try{node.disconnect();}catch(e){}
-    });
-
-    musicNodes = [];
-    musicGain = null;
-    musicMode = "";
   }
 
-  // Música continua generada en el navegador.
-  function startMusic(mode){
-    if(!soundOn || !initAudio()) return;
-    if(musicMode === mode && musicGain) return;
+  function startTerror() {
+    if (!soundOn) return;
+    pauseAudio(suspense);
+    pauseAudio(laugh);
 
-    stopMusic();
-    musicMode = mode;
-
-    const master = audio.createGain();
-    master.gain.value = 0.0001;
-    master.connect(audio.destination);
-    master.gain.setTargetAtTime(
-      mode === "terror" ? 0.16 : 0.12,
-      audio.currentTime,0.35
-    );
-    musicGain = master;
-
-    const frequencies = mode === "terror"
-      ? [55,65.4,77.8]
-      : [65.4,73.4,87.3];
-
-    frequencies.forEach((frequency,i) => {
-      const osc = audio.createOscillator();
-      const gain = audio.createGain();
-      const filter = audio.createBiquadFilter();
-
-      osc.type = i === 0 ? "triangle" : "sawtooth";
-      osc.frequency.value = frequency;
-      filter.type = "lowpass";
-      filter.frequency.value = mode === "terror" ? 280 : 220;
-      gain.gain.value = i === 0 ? 0.28 : 0.10;
-
-      osc.connect(filter);
-      filter.connect(gain);
-      gain.connect(master);
-      osc.start();
-
-      musicNodes.push(osc,filter,gain);
-    });
-
-    const notes = mode === "terror"
-      ? [220,233.1,196,174.6,233.1]
-      : [174.6,196,164.8,185,146.8];
-
-    let noteIndex = 0;
-
-    function playNote(){
-      if(!soundOn || !musicGain || musicMode !== mode) return;
-
-      const osc = audio.createOscillator();
-      const gain = audio.createGain();
-
-      osc.type = "sine";
-      osc.frequency.value = notes[noteIndex % notes.length];
-      noteIndex++;
-
-      gain.gain.setValueAtTime(0.0001,audio.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.035,audio.currentTime+0.08);
-      gain.gain.exponentialRampToValueAtTime(0.0001,audio.currentTime+1.1);
-
-      osc.connect(gain);
-      gain.connect(master);
-      osc.start();
-      osc.stop(audio.currentTime+1.15);
+    if (terror.paused) {
+      terror.currentTime = 0;
+      playAudio(terror);
     }
-
-    playNote();
-    musicTimer = setInterval(playNote,mode === "terror" ? 850 : 1250);
   }
 
-  // Carcajada sintética de bruja.
-  function evilLaugh(){
-    if(!soundOn || !initAudio()) return;
-
-    const now = audio.currentTime;
-    const master = audio.createGain();
-    master.gain.value = 0.22;
-    master.connect(audio.destination);
-
-    const frequencies = [440,370,330,277,220];
-
-    frequencies.forEach((frequency,i) => {
-      const osc = audio.createOscillator();
-      const gain = audio.createGain();
-      const start = now+i*0.24;
-
-      osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(frequency,start);
-      osc.frequency.exponentialRampToValueAtTime(frequency*0.65,start+0.20);
-
-      gain.gain.setValueAtTime(0.0001,start);
-      gain.gain.linearRampToValueAtTime(0.45,start+0.04);
-      gain.gain.setValueAtTime(0.0001,start+0.13);
-      gain.gain.linearRampToValueAtTime(0.40,start+0.16);
-      gain.gain.exponentialRampToValueAtTime(0.0001,start+0.23);
-
-      osc.connect(gain);
-      gain.connect(master);
-      osc.start(start);
-      osc.stop(start+0.25);
-    });
-
-    setTimeout(() => {
-      try{master.disconnect();}catch(e){}
-    },1800);
-  }
-
-  function toggleSound(){
+  function toggleSound() {
     soundOn = !soundOn;
 
     document.querySelectorAll(".sound-button").forEach(button => {
       button.textContent = soundOn ? "🔊" : "🔇";
     });
 
-    if(!soundOn){
-      stopMusic();
+    if (!soundOn) {
+      stopAllAudio();
       return;
     }
 
-    if(!$("film").classList.contains("hidden")){
-      startMusic("suspense");
-    }else if(!$("tombs").classList.contains("hidden")){
-      startMusic("terror");
-    }
+    if (!$("film").classList.contains("hidden")) startSuspense();
+    else if (!$("tombs").classList.contains("hidden")) startTerror();
   }
 
   document.querySelectorAll(".sound-button").forEach(button => {
-    button.addEventListener("click",toggleSound);
+    button.addEventListener("click", toggleSound);
   });
 
-  function renderScene(){
+  function renderScene() {
     stopTimer();
 
     const scene = scenes[current];
     const image = $("filmImage");
-
     image.classList.add("fade");
 
     setTimeout(() => {
@@ -520,93 +378,92 @@ button,a{-webkit-tap-highlight-color:transparent}
       image.onerror = () => {
         image.classList.remove("fade");
         $("subtitle").textContent =
-          "No se pudo cargar "+scene.image+
+          "No se pudo cargar " + scene.image +
           ". Revisá el nombre del archivo en GitHub.";
       };
 
       image.src = scene.image;
       image.alt = scene.chapter;
 
-      if(image.complete && image.naturalWidth > 0){
+      if (image.complete && image.naturalWidth > 0) {
         image.classList.remove("fade");
       }
-    },350);
+    }, 250);
 
     const started = Date.now();
 
     timer = setInterval(() => {
-      const elapsed = Date.now()-started;
+      const elapsed = Date.now() - started;
       $("progress").style.width =
-        Math.min(100,elapsed/duration*100)+"%";
+        Math.min(100, elapsed / duration * 100) + "%";
 
-      if(elapsed >= duration) nextScene();
-    },50);
+      if (elapsed >= duration) nextScene();
+    }, 50);
 
-    startMusic("suspense");
+    startSuspense();
   }
 
-  function nextScene(){
+  function nextScene() {
     stopTimer();
 
-    if(current < scenes.length-1){
+    if (current < scenes.length - 1) {
       current++;
       renderScene();
-    }else{
+    } else {
       $("progress").style.width = "100%";
       show("tombs");
-      startMusic("terror");
+      startTerror();
     }
   }
 
-  function getSaved(){
-    try{
-      return JSON.parse(localStorage.getItem(storageKey)||"null");
-    }catch(e){
+  function getSaved() {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey) || "null");
+    } catch (e) {
       return null;
     }
   }
 
-  function displayResult(data,repeated){
+  function displayResult(data, repeated) {
     $("resultTitle").textContent = repeated
       ? "🪦 YA PARTICIPASTE"
       : "🎃 ¡LA TUMBA REVELÓ TU PREMIO!";
 
     $("prize").textContent = data.prize;
-
     $("resultText").textContent = repeated
-      ? "Tu premio guardado fue "+data.prize+
-        " en la tumba "+data.grave+"."
-      : "Elegiste la tumba "+data.grave+
-        " y descubriste "+data.prize+".";
+      ? "Tu premio guardado fue " + data.prize +
+        " en la tumba " + data.grave + "."
+      : "Elegiste la tumba " + data.grave +
+        " y descubriste " + data.prize + ".";
 
     const message =
-      "¡Hola, Comunidad Tom! 🎃 Elegí la tumba "+data.grave+
-      " y gané "+data.prize+
+      "¡Hola, Comunidad Tom! 🎃 Elegí la tumba " + data.grave +
+      " y gané " + data.prize +
       " en Tom y el Cementerio Maldito. Quiero reclamar mi premio.";
 
-    $("claim").href = "https://wa.me/?text="+encodeURIComponent(message);
+    $("claim").href =
+      "https://wa.me/?text=" + encodeURIComponent(message);
 
-    stopMusic();
+    stopAllAudio();
     show("result");
   }
 
-  $("start").addEventListener("click",() => {
+  $("start").addEventListener("click", () => {
     const old = getSaved();
 
-    if(old){
-      displayResult(old,true);
+    if (old) {
+      displayResult(old, true);
       return;
     }
 
-    // La interacción del jugador permite iniciar el audio.
     soundOn = true;
     document.querySelectorAll(".sound-button").forEach(button => {
       button.textContent = "🔊";
     });
 
-    initAudio();
     current = 0;
     choosingTomb = false;
+    audioStarted = true;
     $("progress").style.width = "0%";
 
     document.querySelectorAll(".tomb-choice").forEach(button => {
@@ -614,23 +471,25 @@ button,a{-webkit-tap-highlight-color:transparent}
     });
 
     show("film");
-    startMusic("suspense");
+
+    // El clic del jugador permite iniciar la música.
+    startSuspense();
     renderScene();
   });
 
-  $("skip").addEventListener("click",() => {
+  $("skip").addEventListener("click", () => {
     stopTimer();
     show("tombs");
-    startMusic("terror");
+    startTerror();
   });
 
-  document.querySelectorAll(".tomb-choice").forEach((button,index) => {
-    button.addEventListener("click",() => {
-      if(choosingTomb) return;
+  document.querySelectorAll(".tomb-choice").forEach((button, index) => {
+    button.addEventListener("click", () => {
+      if (choosingTomb) return;
 
       const old = getSaved();
-      if(old){
-        displayResult(old,true);
+      if (old) {
+        displayResult(old, true);
         return;
       }
 
@@ -640,38 +499,57 @@ button,a{-webkit-tap-highlight-color:transparent}
         b.disabled = true;
       });
 
-      stopMusic();
-      evilLaugh();
+      stopAllAudio();
+
+      // Reproducir la risa y revelar el premio al terminar.
+      let delay = 2200;
+
+      if (soundOn) {
+        laugh.currentTime = 0;
+        playAudio(laugh);
+
+        if (Number.isFinite(laugh.duration) && laugh.duration > 0) {
+          delay = Math.max(1200, laugh.duration * 1000);
+        } else {
+          laugh.addEventListener("loadedmetadata", function onLoaded() {
+            laugh.removeEventListener("loadedmetadata", onLoaded);
+          }, { once: true });
+        }
+      } else {
+        delay = 100;
+      }
 
       const random = new Uint32Array(1);
-
-      if(window.crypto && window.crypto.getRandomValues){
+      if (window.crypto && window.crypto.getRandomValues) {
         window.crypto.getRandomValues(random);
-      }else{
-        random[0] = Math.floor(Math.random()*4294967295);
+      } else {
+        random[0] = Math.floor(Math.random() * 4294967295);
       }
 
       const data = {
-        grave:index+1,
-        prize:prizes[random[0]%prizes.length]
+        grave: index + 1,
+        prize: prizes[random[0] % prizes.length]
       };
 
-      try{
-        localStorage.setItem(storageKey,JSON.stringify(data));
-      }catch(e){}
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(data));
+      } catch (e) {}
 
       setTimeout(() => {
-        displayResult(data,false);
+        pauseAudio(laugh);
+        displayResult(data, false);
         choosingTomb = false;
-      },soundOn ? 1900 : 100);
+      }, delay);
     });
   });
 
-  $("playAgain").addEventListener("click",() => {
+  $("playAgain").addEventListener("click", () => {
     stopTimer();
-    stopMusic();
+    stopAllAudio();
 
-    try{localStorage.removeItem(storageKey);}catch(e){}
+    try {
+      localStorage.removeItem(storageKey);
+    } catch (e) {}
 
     choosingTomb = false;
     current = 0;
@@ -684,7 +562,7 @@ button,a{-webkit-tap-highlight-color:transparent}
     $("filmImage").classList.remove("fade");
 
     show("intro");
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   });
 
 })();
