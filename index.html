@@ -95,26 +95,23 @@ button,a{-webkit-tap-highlight-color:transparent}
   z-index:2;pointer-events:none
 }
 
-/* BOTONES INVISIBLES: TRES ARRIBA Y TRES ABAJO */
+/* SEIS BOTONES: TRES ARRIBA Y TRES ABAJO */
 .tomb-choice{
   position:absolute;z-index:5;
   width:27%;height:34%;
   padding:0;border:2px solid transparent;
   border-radius:35% 35% 8px 8px;
-  background:transparent;cursor:pointer;
+  background:transparent;cursor:pointer
 }
 .tomb-choice:hover,.tomb-choice:focus-visible{
   outline:none;border-color:#ffd27a99;
-  background:#ffd27a12;box-shadow:0 0 15px #ffd27a44;
+  background:#ffd27a12;box-shadow:0 0 15px #ffd27a44
 }
 .tomb-choice:disabled{cursor:default}
 
-/* FILA SUPERIOR */
 .tomb1{left:3%;top:14%}
 .tomb2{left:36.5%;top:14%}
 .tomb3{left:70%;top:14%}
-
-/* FILA INFERIOR */
 .tomb4{left:3%;top:55%}
 .tomb5{left:36.5%;top:55%}
 .tomb6{left:70%;top:55%}
@@ -167,7 +164,6 @@ button,a{-webkit-tap-highlight-color:transparent}
 <audio id="terrorAudio" src="terror.mp3" preload="auto" loop></audio>
 <audio id="witchAudio" src="risa-bruja.mp3" preload="auto"></audio>
 
-<!-- PORTADA -->
 <section id="intro" class="screen">
   <img id="introImage" class="full-image" src="escena1.png" alt="Tom sale a buscar dulces">
   <div class="shade"></div>
@@ -181,7 +177,6 @@ button,a{-webkit-tap-highlight-color:transparent}
   </div>
 </section>
 
-<!-- HISTORIA -->
 <section id="film" class="screen hidden">
   <img id="filmImage" class="full-image" src="escena1.png" alt="Escena de la película">
   <div class="shade"></div>
@@ -196,7 +191,6 @@ button,a{-webkit-tap-highlight-color:transparent}
   </div>
 </section>
 
-<!-- SEIS TUMBAS -->
 <section id="tombs" class="screen hidden">
   <img class="full-image" src="fondo-cementerio.png" alt="Cementerio bajo la luna">
   <div class="shade"></div>
@@ -207,9 +201,7 @@ button,a{-webkit-tap-highlight-color:transparent}
     <h2>Las seis tumbas malditas</h2>
     <p>Elegí una tumba para descubrir tu premio… si te animás.</p>
   </div>
-
   <img class="tombs-sheet" src="tumbas-nuevas.png" alt="Seis tumbas numeradas">
-
   <button class="tomb-choice tomb1" aria-label="Elegir tumba 1"></button>
   <button class="tomb-choice tomb2" aria-label="Elegir tumba 2"></button>
   <button class="tomb-choice tomb3" aria-label="Elegir tumba 3"></button>
@@ -218,7 +210,6 @@ button,a{-webkit-tap-highlight-color:transparent}
   <button class="tomb-choice tomb6" aria-label="Elegir tumba 6"></button>
 </section>
 
-<!-- PREMIO -->
 <section id="result" class="screen hidden">
   <img class="full-image" src="fondo-cementerio.png" alt="Cementerio maldito">
   <div class="shade"></div>
@@ -246,7 +237,7 @@ button,a{-webkit-tap-highlight-color:transparent}
 (() => {
   const $ = id => document.getElementById(id);
   const screens = ["intro","film","tombs","result"];
-  const storageKey = "tumbatom-premio-v5";
+  const storageKey = "tumbatom-premio-v6";
   const sceneDuration = 3500;
   const prizes = ["$500","$1.000","10%","15%","25%","30%"];
 
@@ -431,7 +422,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   });
 
   document.querySelectorAll(".tomb-choice").forEach((button,index) => {
-    button.addEventListener("click",async () => {
+    button.addEventListener("click",() => {
       if(choosingTomb) return;
 
       const old = getSaved();
@@ -448,24 +439,15 @@ button,a{-webkit-tap-highlight-color:transparent}
       const data = {grave:index+1,prize:prizes[random[0]%prizes.length]};
       try { localStorage.setItem(storageKey,JSON.stringify(data)); } catch(e) {}
 
-      let delay = 2200;
-
+      // Mostrar el premio enseguida, sin esperar a que termine la risa.
       if(soundOn) {
         witch.currentTime = 0;
         witch.volume = 1;
-        try {
-          await witch.play();
-          if(Number.isFinite(witch.duration) && witch.duration>0) delay=Math.max(1500,witch.duration*1000);
-        } catch(error) {
-          console.error("No se pudo reproducir la risa:",error);
-        }
-      } else delay = 100;
+        witch.play().catch(error => console.error("Error de audio:",error));
+      }
 
-      setTimeout(() => {
-        stopAudio(witch);
-        displayResult(data,false);
-        choosingTomb = false;
-      },delay);
+      displayResult(data,false);
+      choosingTomb = false;
     });
   });
 
