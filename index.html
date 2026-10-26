@@ -11,142 +11,120 @@
 *{box-sizing:border-box}
 html,body{
   margin:0;width:100%;height:100%;overflow:hidden;
-  background:#08040d;color:#fff;font-family:Georgia,serif;
+  background:#08040d;color:#fff;font-family:Georgia,serif
 }
 button,a{-webkit-tap-highlight-color:transparent}
 .screen{
   position:fixed;inset:0;width:100%;height:100%;
-  overflow:hidden;background:#08040d;
+  overflow:hidden;background:#08040d
 }
 .hidden{display:none!important}
 .full-image{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center;display:block;
+  object-fit:cover;object-position:center;display:block
 }
 .shade{
   position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(0deg,#000d,transparent 75%);
+  background:linear-gradient(0deg,#000d,transparent 75%)
 }
 .top-controls{
   position:absolute;top:max(12px,env(safe-area-inset-top));
-  right:12px;z-index:20;display:flex;gap:8px;
+  right:12px;z-index:20;display:flex;gap:8px
 }
 .round{
   border:1px solid #ffffff80;background:#130b1de8;color:white;
-  border-radius:50%;width:44px;height:44px;
-  font-size:19px;cursor:pointer;
+  border-radius:50%;width:44px;height:44px;font-size:19px;cursor:pointer
 }
 .action{
   display:inline-block;border:1px solid #ffe0a1;color:white;
   background:linear-gradient(135deg,#8a36a8,#32103e);
-  padding:13px 22px;border-radius:40px;
-  font:bold 15px Arial,sans-serif;cursor:pointer;
-  text-decoration:none;box-shadow:0 5px 25px #0009;margin:5px;
+  padding:13px 22px;border-radius:40px;font:bold 15px Arial,sans-serif;
+  cursor:pointer;text-decoration:none;box-shadow:0 5px 25px #0009;margin:5px
 }
-
-/* PORTADA */
-#introImage{animation:zoom 12s ease-in-out infinite alternate}
-@keyframes zoom{to{transform:scale(1.07)}}
 .intro-content{
   position:absolute;z-index:3;inset:0;display:flex;
   flex-direction:column;align-items:center;justify-content:flex-end;
   padding:25px 18px max(9vh,35px);text-align:center;
-  background:linear-gradient(transparent 20%,#08040de8);
+  background:linear-gradient(transparent 20%,#08040de8)
 }
 .intro-content h1{
   color:#ffdc9b;font-size:clamp(30px,7vw,70px);
-  text-shadow:0 0 25px #9a40ff;margin:0 0 12px;
+  text-shadow:0 0 25px #9a40ff;margin:0 0 12px
 }
-.intro-content p{
-  font-size:clamp(16px,2.5vw,23px);margin:0 0 22px;
-}
+.intro-content p{font-size:clamp(16px,2.5vw,23px);margin:0 0 22px}
+#introImage{animation:zoom 12s ease-in-out infinite alternate}
+@keyframes zoom{to{transform:scale(1.07)}}
 
-/* HISTORIA */
 .film-progress{
   position:absolute;left:0;right:0;top:0;height:4px;
-  background:#ffffff30;z-index:5;
+  background:#ffffff30;z-index:5
 }
-.film-progress span{
-  display:block;width:0;height:100%;background:#ffd28a;
-}
+.film-progress span{display:block;width:0;height:100%;background:#ffd28a}
 #filmImage{opacity:1;transition:opacity .4s ease}
 #filmImage.fade{opacity:0}
 .story-copy{
   position:absolute;z-index:3;left:6%;right:6%;
   bottom:max(8%,30px);text-align:left;
-  text-shadow:0 3px 8px #000,0 0 18px #000;
+  text-shadow:0 3px 8px #000,0 0 18px #000
 }
 .eyebrow{
   color:#ffd28a;font:bold 12px Arial,sans-serif;
-  letter-spacing:3px;margin-bottom:12px;
+  letter-spacing:3px;margin-bottom:12px
 }
 .story-copy p{
   font-size:clamp(18px,2.7vw,29px);
-  line-height:1.4;max-width:950px;margin:0;
+  line-height:1.4;max-width:950px;margin:0
 }
 
-/* SELECCIÓN DE TUMBAS */
+/* TUMBAS */
 .tomb-title{
-  position:absolute;z-index:4;
-  top:max(12px,env(safe-area-inset-top));
-  left:3%;right:3%;text-align:center;
-  text-shadow:0 2px 8px #000;pointer-events:none;
+  position:absolute;z-index:4;top:max(12px,env(safe-area-inset-top));
+  left:3%;right:3%;text-align:center;text-shadow:0 2px 8px #000;
+  pointer-events:none
 }
 .tomb-title h2{
-  margin:0 0 5px;color:#ffe0a1;
-  font-size:clamp(22px,4vw,42px);
+  margin:0 0 5px;color:#ffe0a1;font-size:clamp(22px,4vw,42px)
 }
-.tomb-title p{
-  margin:0;font-size:clamp(12px,2vw,18px);
-}
-
-/* La imagen y los botones comparten el mismo contenedor */
+.tomb-title p{margin:0;font-size:clamp(12px,2vw,18px)}
 .tomb-stage{
   position:absolute;z-index:3;top:35%;left:0;width:100%;
-  aspect-ratio:1.92 / 1;
+  aspect-ratio:1.92 / 1
 }
 .tombs-sheet{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:contain;object-position:center;
-  display:block;pointer-events:none;z-index:1;
+  object-fit:contain;object-position:center;display:block;
+  pointer-events:none;z-index:1
 }
-
-/* BOTONES INVISIBLES */
 .tomb-choice{
   position:absolute;z-index:5;width:30%;height:47%;
   margin:0;padding:0;border:2px solid transparent;
-  border-radius:22%;background:transparent;
-  cursor:pointer;touch-action:manipulation;
+  border-radius:22%;background:transparent;cursor:pointer;
+  touch-action:manipulation
 }
 .tomb-choice:hover,.tomb-choice:focus-visible{
-  outline:none;border-color:#ffd27a99;
-  background:#ffd27a12;box-shadow:0 0 15px #ffd27a44;
+  outline:none;border-color:#ffd27a99;background:#ffd27a12;
+  box-shadow:0 0 15px #ffd27a44
 }
 .tomb-choice:disabled{cursor:default}
-
-/* Fila superior: tumbas 1, 2 y 3 */
 .tomb1{left:2%;top:1%}
 .tomb2{left:35%;top:1%}
 .tomb3{left:68%;top:1%}
-
-/* Fila inferior: tumbas 4, 5 y 6 */
 .tomb4{left:2%;top:51%}
 .tomb5{left:35%;top:51%}
 .tomb6{left:68%;top:51%}
 
-/* REVELACIÓN DEL PREMIO */
+/* RESULTADO Y BLOQUEO */
 .result-content{
-  position:absolute;z-index:4;inset:0;
-  display:flex;flex-direction:column;
-  justify-content:center;align-items:center;
+  position:absolute;z-index:4;inset:0;display:flex;
+  flex-direction:column;justify-content:center;align-items:center;
   padding:20px;text-align:center;
   background:radial-gradient(ellipse at center,#341044ed 0%,#100817f5 58%,#050208 100%);
-  overflow-y:auto;animation:revealPrize 1.2s ease-out both;
+  overflow-y:auto;animation:revealPrize 1.2s ease-out both
 }
 .result-content::before{
   content:"";position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(circle at center,#ffdc9b50 0%,#9d35ff22 30%,transparent 65%);
-  animation:magicFlash 1.4s ease-out both;
+  animation:magicFlash 1.4s ease-out both
 }
 .result-content>*{position:relative;z-index:1}
 @keyframes revealPrize{
@@ -155,25 +133,22 @@ button,a{-webkit-tap-highlight-color:transparent}
   70%{transform:scale(.97);filter:brightness(1.2)}
   100%{opacity:1;transform:scale(1);filter:brightness(1)}
 }
-@keyframes magicFlash{
-  0%{opacity:0}25%{opacity:1}100%{opacity:0}
-}
+@keyframes magicFlash{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
 .result-content h2{
   color:#ffe0a1;font-size:clamp(26px,5vw,48px);
   text-shadow:0 0 20px #9c3fff;margin:0 0 10px;
-  animation:titleAppear .8s ease-out both;
+  animation:titleAppear .8s ease-out both
 }
 @keyframes titleAppear{
   from{opacity:0;transform:translateY(-25px)}
   to{opacity:1;transform:translateY(0)}
 }
 .prize{
-  font:bold clamp(38px,9vw,76px) Arial,sans-serif;
-  color:#ffda79;text-shadow:0 0 20px #ff832d;
-  margin:12px 0;
+  font:bold clamp(36px,9vw,76px) Arial,sans-serif;
+  color:#ffda79;text-shadow:0 0 20px #ff832d;margin:12px 0;
   overflow-wrap:anywhere;
   animation:prizeAppear 1s .2s ease-out both,
-            prizeGlow 1.3s 1.2s ease-in-out infinite alternate;
+            prizeGlow 1.3s 1.2s ease-in-out infinite alternate
 }
 @keyframes prizeAppear{
   0%{opacity:0;transform:scale(.25) rotate(-8deg);filter:blur(12px)}
@@ -184,22 +159,15 @@ button,a{-webkit-tap-highlight-color:transparent}
   from{text-shadow:0 0 12px #ff832d}
   to{text-shadow:0 0 30px #ffda79,0 0 55px #ff832d}
 }
-.conditions{
-  font:14px/1.8 Arial,sans-serif;margin:8px 0 14px;
-}
+.conditions{font:14px/1.8 Arial,sans-serif;margin:8px 0 14px}
 .muted{font:12px Arial,sans-serif;color:#e3d7eb;margin-top:12px}
+.lock-icon{font-size:50px;margin:5px 0}
 
-/* CELULARES */
 @media(max-width:600px){
-  .tomb-title{
-    top:max(20px,env(safe-area-inset-top));
-    left:2%;right:2%;
-  }
+  .tomb-title{top:max(20px,env(safe-area-inset-top));left:2%;right:2%}
   .tomb-title h2{font-size:clamp(21px,5vw,30px)}
   .tomb-title p{font-size:12px}
-  .tomb-stage{
-    top:38%;left:0;width:100%;aspect-ratio:1.92 / 1;
-  }
+  .tomb-stage{top:38%;left:0;width:100%;aspect-ratio:1.92 / 1}
   .tomb-choice{width:30%;height:47%}
   .tomb1{left:2%;top:1%}
   .tomb2{left:35%;top:1%}
@@ -235,7 +203,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   </div>
 </section>
 
-<!-- HISTORIA CINEMATOGRÁFICA -->
+<!-- HISTORIA -->
 <section id="film" class="screen hidden">
   <img id="filmImage" class="full-image" src="escena1.png" alt="Escena de la película">
   <div class="shade"></div>
@@ -250,7 +218,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   </div>
 </section>
 
-<!-- LAS SEIS TUMBAS -->
+<!-- SEIS TUMBAS -->
 <section id="tombs" class="screen hidden">
   <img class="full-image" src="fondo-cementerio.png" alt="Cementerio bajo la luna">
   <div class="shade"></div>
@@ -261,7 +229,6 @@ button,a{-webkit-tap-highlight-color:transparent}
     <h2>Las seis tumbas malditas</h2>
     <p>Elegí una tumba para descubrir tu premio… si te animás.</p>
   </div>
-
   <div class="tomb-stage">
     <img class="tombs-sheet" src="tumbas-nuevas.png" alt="Seis tumbas numeradas">
     <button class="tomb-choice tomb1" data-grave="1" aria-label="Elegir tumba 1"></button>
@@ -273,12 +240,13 @@ button,a{-webkit-tap-highlight-color:transparent}
   </div>
 </section>
 
-<!-- PANTALLA DEL PREMIO -->
+<!-- RESULTADO -->
 <section id="result" class="screen hidden">
   <img class="full-image" src="fondo-cementerio.png" alt="Cementerio maldito">
   <div class="shade"></div>
   <div class="result-content" id="resultContent">
-    <h2 id="resultTitle">🎃 ¡LA TUMBA REVELÓ TU PREMIO!</h2>
+    <div class="lock-icon" id="resultIcon">🎃</div>
+    <h2 id="resultTitle">¡LA TUMBA REVELÓ TU PREMIO!</h2>
     <div class="prize" id="prize"></div>
     <p id="resultText"></p>
     <div class="conditions">
@@ -287,11 +255,12 @@ button,a{-webkit-tap-highlight-color:transparent}
       🔄 Para retirar con bono hay que duplicarlo.<br>
       🚫 No válido para ruleta.<br>
       🎮 Una plataforma, una carga y un número.<br>
-      🐱 Una vez por usuario.
+      🐱 Una participación por dispositivo.
     </div>
-    <a class="action" id="claim" href="https://wa.link/ymnigq" target="_blank" rel="noopener">💬 RECLAMAR MI PREMIO</a>
-    <button class="action" id="playAgain">🔄 JUGAR OTRA VEZ</button>
-    <p class="muted">Guardá una captura de tu resultado.</p>
+    <a class="action" id="claim" href="https://wa.link/ymnigq" target="_blank" rel="noopener">
+      💬 RECLAMAR MI PREMIO
+    </a>
+    <p class="muted" id="participationNotice">🔒 Tu participación quedó guardada.</p>
   </div>
 </section>
 
@@ -300,23 +269,19 @@ button,a{-webkit-tap-highlight-color:transparent}
   const $ = id => document.getElementById(id);
 
   /*
-   * Clave nueva para que el código actualizado no recupere
-   * un premio aleatorio guardado por la versión anterior.
+   * Se mantiene esta clave para conservar los premios
+   * que ya se guardaron con la versión anterior.
    */
   const storageKey = "tumbatom-premio-v14";
   const sceneDuration = 4500;
 
-  /*
-   * PREMIOS FIJOS Y ENLACES DEFINITIVOS.
-   * El premio depende exclusivamente de la tumba elegida.
-   */
   const prizes = {
-    1: { label:"30%", url:"https://wa.link/ymnigq" },
-    2: { label:"25%", url:"https://wa.link/s4d4z3" },
-    3: { label:"15%", url:"https://wa.link/lmqezc" },
-    4: { label:"500 fichas regaladas", url:"https://wa.link/c270kk" },
-    5: { label:"1.000 fichas regaladas", url:"https://wa.link/6xs06n" },
-    6: { label:"10%", url:"https://wa.link/225b7i" }
+    1: {label:"30%", url:"https://wa.link/ymnigq"},
+    2: {label:"25%", url:"https://wa.link/s4d4z3"},
+    3: {label:"15%", url:"https://wa.link/lmqezc"},
+    4: {label:"500 fichas regaladas", url:"https://wa.link/c270kk"},
+    5: {label:"1.000 fichas regaladas", url:"https://wa.link/6xs06n"},
+    6: {label:"10%", url:"https://wa.link/225b7i"}
   };
 
   const suspense = $("suspenseAudio");
@@ -384,13 +349,11 @@ button,a{-webkit-tap-highlight-color:transparent}
     suspense.pause();
     terror.pause();
     witch.pause();
-
     try {
       suspense.currentTime = 0;
       terror.currentTime = 0;
       witch.currentTime = 0;
     } catch (e) {}
-
     musicMode = "";
   }
 
@@ -403,20 +366,11 @@ button,a{-webkit-tap-highlight-color:transparent}
 
     musicMode = mode;
     element.volume = 1;
-
     try {
       await element.play();
     } catch (error) {
       console.error("No se pudo reproducir el audio:", element.src, error);
     }
-  }
-
-  function playSuspense() {
-    return playMusic(suspense, "suspense");
-  }
-
-  function playTerror() {
-    return playMusic(terror, "terror");
   }
 
   function toggleSound() {
@@ -431,11 +385,8 @@ button,a{-webkit-tap-highlight-color:transparent}
       return;
     }
 
-    if (!$("film").classList.contains("hidden")) {
-      playSuspense();
-    } else if (!$("tombs").classList.contains("hidden")) {
-      playTerror();
-    }
+    if (!$("film").classList.contains("hidden")) playMusic(suspense,"suspense");
+    else if (!$("tombs").classList.contains("hidden")) playMusic(terror,"terror");
   }
 
   document.querySelectorAll(".sound-button").forEach(button => {
@@ -480,7 +431,6 @@ button,a{-webkit-tap-highlight-color:transparent}
 
     timer = setInterval(() => {
       const elapsed = Date.now() - started;
-
       $("progress").style.width =
         Math.min(100, elapsed / sceneDuration * 100) + "%";
 
@@ -490,7 +440,6 @@ button,a{-webkit-tap-highlight-color:transparent}
 
   function nextScene() {
     if (changingScene) return;
-
     changingScene = true;
     stopTimer();
 
@@ -500,43 +449,44 @@ button,a{-webkit-tap-highlight-color:transparent}
     } else {
       $("progress").style.width = "100%";
       show("tombs");
-      playTerror();
+      playMusic(terror,"terror");
     }
   }
 
   function getSaved() {
     try {
-      return JSON.parse(localStorage.getItem(storageKey) || "null");
+      const saved = localStorage.getItem(storageKey);
+      return saved ? JSON.parse(saved) : null;
     } catch (e) {
       return null;
     }
   }
 
   function displayResult(data, repeated) {
+    stopTimer();
     stopBackgroundMusic();
 
+    $("resultIcon").textContent = repeated ? "🔒" : "🎃";
     $("resultTitle").textContent = repeated
-      ? "🪦 YA PARTICIPASTE"
-      : "🎃 ¡LA TUMBA REVELÓ TU PREMIO!";
+      ? "¡YA PARTICIPASTE!"
+      : "¡LA TUMBA REVELÓ TU PREMIO!";
 
     $("prize").textContent = data.prize;
-
     $("resultText").textContent = repeated
-      ? "Tu premio guardado fue " + data.prize +
-        " en la tumba " + data.grave + "."
-      : "¡La tumba " + data.grave +
-        " te ha revelado tu premio!";
+      ? "Tu participación ya está registrada. Elegiste la tumba " +
+        data.grave + " y tu premio es " + data.prize + "."
+      : "¡La tumba " + data.grave + " te ha revelado tu premio!";
 
-    /*
-     * El enlace se recupera usando el número de tumba.
-     * Nunca se usa un enlace aleatorio.
-     */
-    const prizeInfo = prizes[data.grave];
+    const prizeInfo = prizes[Number(data.grave)];
 
     if (prizeInfo) {
       $("claim").href = prizeInfo.url;
       $("claim").textContent = "💬 RECLAMAR " + prizeInfo.label;
     }
+
+    $("participationNotice").textContent = repeated
+      ? "🔒 No podés volver a elegir otra tumba desde este navegador."
+      : "🔒 Tu participación quedó guardada.";
 
     const content = $("resultContent");
     content.style.animation = "none";
@@ -546,11 +496,15 @@ button,a{-webkit-tap-highlight-color:transparent}
     show("result");
   }
 
+  /*
+   * Si el navegador ya guardó una participación,
+   * no permite empezar una nueva historia.
+   */
   $("start").addEventListener("click", async () => {
     const old = getSaved();
 
-    if (old) {
-      displayResult(old, true);
+    if (old && old.participo !== false) {
+      displayResult(old,true);
       return;
     }
 
@@ -572,7 +526,7 @@ button,a{-webkit-tap-highlight-color:transparent}
     });
 
     show("film");
-    await playSuspense();
+    await playMusic(suspense,"suspense");
     renderScene();
   });
 
@@ -583,17 +537,17 @@ button,a{-webkit-tap-highlight-color:transparent}
     $("chapter").textContent = scenes[current].chapter;
     $("subtitle").textContent = scenes[current].text;
     show("tombs");
-    playTerror();
+    playMusic(terror,"terror");
   });
 
   document.querySelectorAll(".tomb-choice").forEach(button => {
     button.addEventListener("click", () => {
       if (choosingTomb) return;
 
+      /* Segunda comprobación antes de aceptar una elección */
       const old = getSaved();
-
       if (old) {
-        displayResult(old, true);
+        displayResult(old,true);
         return;
       }
 
@@ -613,65 +567,58 @@ button,a{-webkit-tap-highlight-color:transparent}
         return;
       }
 
-      /*
-       * PREMIO FIJO: cada tumba tiene su propio premio.
-       */
       const data = {
         grave: grave,
-        prize: prizeInfo.label
+        prize: prizeInfo.label,
+        participo: true,
+        fecha: new Date().toISOString()
       };
 
+      /*
+       * Guardamos antes de mostrar el premio para evitar
+       * que un refresco permita una segunda elección.
+       */
       try {
-        localStorage.setItem(storageKey, JSON.stringify(data));
-      } catch (e) {}
+        localStorage.setItem(storageKey,JSON.stringify(data));
 
-      /* RISA DE BRUJA AL ELEGIR LA TUMBA */
+        if (!localStorage.getItem(storageKey)) {
+          throw new Error("No se pudo verificar el registro");
+        }
+      } catch (error) {
+        alert("No se pudo guardar la participación. Revisá la configuración del navegador e intentá nuevamente.");
+        document.querySelectorAll(".tomb-choice").forEach(b => {
+          b.disabled = false;
+        });
+        choosingTomb = false;
+        return;
+      }
+
+      /* Risa de bruja */
       if (soundOn) {
         witch.pause();
         witch.currentTime = 0;
         witch.volume = 1;
 
         const audioPromise = witch.play();
-
         if (audioPromise) {
           audioPromise.catch(error => {
-            console.error("No se pudo reproducir la risa de bruja:", error);
+            console.error("No se pudo reproducir la risa:",error);
           });
         }
       }
 
-      /* Revelación rápida con animación */
       setTimeout(() => {
-        displayResult(data, false);
+        displayResult(data,false);
         choosingTomb = false;
-      }, 700);
+      },700);
     });
   });
 
-  $("playAgain").addEventListener("click", () => {
-    stopTimer();
-    stopAllAudio();
-    sceneToken++;
-
-    try {
-      localStorage.removeItem(storageKey);
-    } catch (e) {}
-
-    choosingTomb = false;
-    changingScene = false;
-    current = 0;
-
-    document.querySelectorAll(".tomb-choice").forEach(button => {
-      button.disabled = false;
-    });
-
-    $("progress").style.width = "0%";
-    $("filmImage").classList.remove("fade");
-
-    show("intro");
-  });
+  /*
+   * No existe botón para borrar la participación ni reiniciar.
+   * Si se vuelve a abrir el juego, se consulta el registro guardado.
+   */
 })();
 </script>
-
 </body>
 </html>
