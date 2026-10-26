@@ -95,7 +95,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   z-index:2;pointer-events:none
 }
 
-/* SEIS BOTONES: TRES ARRIBA Y TRES ABAJO */
+/* TRES TUMBAS ARRIBA Y TRES ABAJO */
 .tomb-choice{
   position:absolute;z-index:5;
   width:27%;height:34%;
@@ -116,11 +116,18 @@ button,a{-webkit-tap-highlight-color:transparent}
 .tomb5{left:36.5%;top:55%}
 .tomb6{left:70%;top:55%}
 
+/* PANTALLA DE PREMIO */
 .result-content{
   position:absolute;z-index:4;inset:0;
   display:flex;flex-direction:column;justify-content:center;
   align-items:center;padding:20px;text-align:center;
-  background:#08040de9;overflow-y:auto
+  background:#08040de9;overflow-y:auto;
+  animation:revealPrize .9s ease-out both
+}
+@keyframes revealPrize{
+  0%{opacity:0;transform:scale(.88);filter:brightness(.25)}
+  65%{opacity:1;transform:scale(1.035);filter:brightness(1.2)}
+  100%{opacity:1;transform:scale(1);filter:brightness(1)}
 }
 .result-content h2{
   color:#ffe0a1;font-size:clamp(26px,5vw,48px);
@@ -128,7 +135,12 @@ button,a{-webkit-tap-highlight-color:transparent}
 }
 .prize{
   font:bold clamp(42px,10vw,78px) Arial,sans-serif;
-  color:#ffda79;text-shadow:0 0 30px #ff832d;margin:12px 0
+  color:#ffda79;text-shadow:0 0 30px #ff832d;margin:12px 0;
+  animation:prizeGlow 1.3s ease-in-out infinite alternate
+}
+@keyframes prizeGlow{
+  from{text-shadow:0 0 12px #ff832d}
+  to{text-shadow:0 0 35px #ffda79,0 0 55px #ff832d}
 }
 .conditions{
   font:14px/1.8 Arial,sans-serif;margin:8px 0 14px
@@ -164,6 +176,7 @@ button,a{-webkit-tap-highlight-color:transparent}
 <audio id="terrorAudio" src="terror.mp3" preload="auto" loop></audio>
 <audio id="witchAudio" src="risa-bruja.mp3" preload="auto"></audio>
 
+<!-- PORTADA -->
 <section id="intro" class="screen">
   <img id="introImage" class="full-image" src="escena1.png" alt="Tom sale a buscar dulces">
   <div class="shade"></div>
@@ -177,6 +190,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   </div>
 </section>
 
+<!-- HISTORIA -->
 <section id="film" class="screen hidden">
   <img id="filmImage" class="full-image" src="escena1.png" alt="Escena de la película">
   <div class="shade"></div>
@@ -191,6 +205,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   </div>
 </section>
 
+<!-- SEIS TUMBAS -->
 <section id="tombs" class="screen hidden">
   <img class="full-image" src="fondo-cementerio.png" alt="Cementerio bajo la luna">
   <div class="shade"></div>
@@ -210,10 +225,11 @@ button,a{-webkit-tap-highlight-color:transparent}
   <button class="tomb-choice tomb6" aria-label="Elegir tumba 6"></button>
 </section>
 
+<!-- PREMIO -->
 <section id="result" class="screen hidden">
   <img class="full-image" src="fondo-cementerio.png" alt="Cementerio maldito">
   <div class="shade"></div>
-  <div class="result-content">
+  <div class="result-content" id="resultContent">
     <h2 id="resultTitle">¡La tumba reveló tu premio!</h2>
     <div class="prize" id="prize"></div>
     <p id="resultText"></p>
@@ -237,7 +253,7 @@ button,a{-webkit-tap-highlight-color:transparent}
 (() => {
   const $ = id => document.getElementById(id);
   const screens = ["intro","film","tombs","result"];
-  const storageKey = "tumbatom-premio-v6";
+  const storageKey = "tumbatom-premio-v7";
   const sceneDuration = 3500;
   const prizes = ["$500","$1.000","10%","15%","25%","30%"];
 
@@ -283,6 +299,12 @@ button,a{-webkit-tap-highlight-color:transparent}
     try { element.currentTime = 0; } catch(e) {}
   }
 
+  function stopMusic() {
+    suspense.pause();
+    terror.pause();
+    musicMode = "";
+  }
+
   function stopAllAudio() {
     stopAudio(suspense);
     stopAudio(terror);
@@ -294,9 +316,9 @@ button,a{-webkit-tap-highlight-color:transparent}
     if(!soundOn) return;
     if(musicMode === mode && !element.paused) return;
 
-    if(element !== suspense) stopAudio(suspense);
-    if(element !== terror) stopAudio(terror);
-    if(element !== witch) stopAudio(witch);
+    if(element !== suspense) suspense.pause();
+    if(element !== terror) terror.pause();
+    if(element !== witch) witch.pause();
 
     musicMode = mode;
     element.volume = 1;
@@ -382,7 +404,12 @@ button,a{-webkit-tap-highlight-color:transparent}
   }
 
   function displayResult(data,repeated) {
-    $("resultTitle").textContent = repeated ? "🪦 YA PARTICIPASTE" : "🎃 ¡LA TUMBA REVELÓ TU PREMIO!";
+    // Detener la música de fondo, pero dejar sonar la risa.
+    stopMusic();
+
+    $("resultTitle").textContent = repeated
+      ? "🪦 YA PARTICIPASTE"
+      : "🎃 ¡LA TUMBA REVELÓ TU PREMIO!";
     $("prize").textContent = data.prize;
     $("resultText").textContent = repeated
       ? "Tu premio guardado fue "+data.prize+" en la tumba "+data.grave+"."
@@ -392,7 +419,12 @@ button,a{-webkit-tap-highlight-color:transparent}
       " y gané "+data.prize+" en Tom y el Cementerio Maldito. Quiero reclamar mi premio.";
 
     $("claim").href = "https://wa.me/?text="+encodeURIComponent(message);
-    stopAllAudio();
+
+    const content = $("resultContent");
+    content.style.animation = "none";
+    void content.offsetWidth;
+    content.style.animation = "";
+
     show("result");
   }
 
@@ -406,7 +438,6 @@ button,a{-webkit-tap-highlight-color:transparent}
     current = 0;
     choosingTomb = false;
     $("progress").style.width = "0%";
-
     document.querySelectorAll(".tomb-choice").forEach(button => button.disabled=false);
 
     show("film");
@@ -424,13 +455,19 @@ button,a{-webkit-tap-highlight-color:transparent}
   document.querySelectorAll(".tomb-choice").forEach((button,index) => {
     button.addEventListener("click",() => {
       if(choosingTomb) return;
+      choosingTomb = true;
 
       const old = getSaved();
-      if(old) { displayResult(old,true); return; }
+      if(old) {
+        displayResult(old,true);
+        choosingTomb = false;
+        return;
+      }
 
-      choosingTomb = true;
       document.querySelectorAll(".tomb-choice").forEach(b => b.disabled=true);
-      stopAllAudio();
+
+      // Parar solamente la música de fondo.
+      stopMusic();
 
       const random = new Uint32Array(1);
       if(window.crypto && window.crypto.getRandomValues) window.crypto.getRandomValues(random);
@@ -439,22 +476,25 @@ button,a{-webkit-tap-highlight-color:transparent}
       const data = {grave:index+1,prize:prizes[random[0]%prizes.length]};
       try { localStorage.setItem(storageKey,JSON.stringify(data)); } catch(e) {}
 
-      // Mostrar el premio enseguida, sin esperar a que termine la risa.
+      // Lanzar la risa sin esperar a que termine para mostrar el premio.
       if(soundOn) {
+        witch.pause();
         witch.currentTime = 0;
         witch.volume = 1;
-        witch.play().catch(error => console.error("Error de audio:",error));
+        witch.play().catch(error => console.error("Error al reproducir la risa:",error));
       }
 
-      displayResult(data,false);
-      choosingTomb = false;
+      // Breve pausa para crear suspenso y revelar el premio con animación.
+      setTimeout(() => {
+        displayResult(data,false);
+        choosingTomb = false;
+      },650);
     });
   });
 
   $("playAgain").addEventListener("click",() => {
     stopTimer();
     stopAllAudio();
-
     try { localStorage.removeItem(storageKey); } catch(e) {}
 
     choosingTomb = false;
